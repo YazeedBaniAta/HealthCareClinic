@@ -1,0 +1,101 @@
+﻿@model FirstProject.Models.Appointment
+
+@{
+    ViewData["Title"] = "Edit Appointment";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+
+	ViewData["DoctorId"] = ViewBag.DoctorId;
+    ViewData["DoctorName"] = ViewBag.DoctorName;
+    ViewData["DoctorIamge"] = ViewBag.DoctorIamge;
+}
+
+<div class="pagetitle">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a asp-controller="DoctorDashboard" asp-action="Index">Home</a></li>
+          <li class="breadcrumb-item"><a asp-controller="DoctorDashboard" asp-action="Appointments" asp-route-id="@ViewBag.DoctorId">Appointments</a></li>
+          <li class="breadcrumb-item active">Edit Appointment</li>
+        </ol>
+      </nav>
+</div><!-- End Page Title -->
+
+
+
+<div class="clearfix"></div>
+
+					<div class="row">
+						<div class="col-md-12 col-sm-12 ">
+							<div class="card card-statistics h-100">
+                <div class="card-body">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>Edit Appointment</h2>
+									<ul class="nav navbar-right panel_toolbox">
+										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+										<li><a class="close-link"><i class="fa fa-close"></i></a></li>
+									</ul>
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+									<br />
+									<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" asp-action="EditAppointment">
+									 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <input type="hidden" asp-for="Id" />
+                                        <input asp-for="AppointmentTime" type="hidden"/>
+                                        <input asp-for="AppointmentDate" type="hidden"/>
+                                        <input asp-for="Message" type="hidden" />
+                                        <select asp-for="PatientId" asp-items="ViewBag.PatientId" hidden></select>
+                                        <select asp-for="DoctorId"  asp-items="ViewBag.DoctorId" hidden></select>
+                                        <select asp-for="DepartmentId"  asp-items="ViewBag.DepartmentId" hidden></select>
+										 <div class="item form-group">
+											<label class="text-dark font-weight-bold col-md-3 col-sm-3 label-align">Patient Name: </label>
+											<div class="col-md-6 col-sm-6 ">
+												<select asp-for="PatientId" class="form-control" asp-items="ViewBag.PatientId" disabled></select>
+											</div>
+										</div>
+										<div class="item form-group py-2">
+											<label class="text-dark font-weight-bold col-md-3 col-sm-3 label-align">Appointment Date : <span class="text-danger">*</span></label>
+											<div class="col-md-6 col-sm-6 ">
+												<input asp-for="AppointmentDate" class="form-control" type="date" disabled/>
+												<span asp-validation-for="AppointmentDate" class="text-danger"></span>
+											</div>
+										</div>
+                                        <div class="item form-group py-2">
+											<label class="text-dark font-weight-bold col-md-3 col-sm-3 label-align">Appointment Time <span class="text-danger">*</span></label>
+											<div class="col-md-6 col-sm-6 ">
+												<input asp-for="AppointmentTime" class="form-control" type="time" disabled/>
+												<span asp-validation-for="AppointmentTime" class="text-danger"></span>
+											</div>
+										</div>
+                                        <div class="item form-group py-2">
+                                            <label class="text-dark font-weight-bold col-md-3 col-sm-3 label-align">Select Status : <span class="text-danger">*</span></label>
+                                            <select class="form-control" asp-for="Status">
+                                                
+                                                @if(Model.Status == "1"){
+                                                    <option selected disabled>approved</option>
+                                                }
+                                                @if(Model.Status == "0"){
+                                                    <option selected disabled>pending request</option>
+                                                }
+                                                @if(Model.Status == "-1"){
+                                                    <option selected disabled>rejected</option>
+                                                }
+                                                <option value="1">approved</option>
+                                                <option value="0">pending request</option>
+                                                <option value="-1">rejected</option>
+                                            </select>
+                                        </div>
+										
+										
+										<div class="item form-group py-2">
+											<div class="col-md-6 col-sm-6 offset-md-3">
+												<input type="submit" class="btn btn-success text-white" value="Save Data">
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>

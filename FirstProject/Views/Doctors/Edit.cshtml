@@ -1,0 +1,146 @@
+﻿@model FirstProject.Models.Doctor
+
+@{
+    ViewData["Title"] = "Edit Doctor";
+    ViewData["AdminId"] = ViewBag.AdminId;
+    ViewData["AdminName"] = ViewBag.AdminName;
+    ViewData["AdminIamge"] = ViewBag.AdminIamge;
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+
+<div class="pagetitle">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a asp-controller="AdminDashboard" asp-action="Index">Home</a></li>
+          <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Doctors">Doctors</a></li>
+          <li class="breadcrumb-item active">Edit Doctor</li>
+        </ol>
+      </nav>
+</div><!-- End Page Title -->
+
+
+         <div class="clearfix"></div>
+                 <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Edit Doctor </h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
+                                        
+                                        <li><a class="close-link"><i class="fa fa-close"></i></a> </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                       <div class="col-md-12 mb-30">
+                            <div class="card card-statistics h-100" style="background-color:#ededed";>
+                                <div class="card-body">
+                                  
+                                    <form asp-action="Edit" autocomplete="off" enctype="multipart/form-data">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <input asp-for="Id" type="hidden">
+                                        <input asp-for="Email" type="hidden">
+                                        <input asp-for="AvailableDay" type="hidden"/>
+                                        <input asp-for="AvailableTime" type="hidden"/>
+                                        <h5 class="font-weight-bold text-dark" style="font-family: 'Cairo', sans-serif;">personal information</h5><br>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold text-dark">First Name : <span class="text-danger">*</span></label>
+                                                    <input asp-for="FirstName"  type="text"  class="form-control" style="border-radius: 10px;">
+                                                   <span asp-validation-for="FirstName" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold text-dark">Last Name : <span class="text-danger">*</span></label>
+                                                    <input asp-for="LastName" class="form-control" style="border-radius: 10px;" />
+                                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                         <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold text-dark">Phone : <span class="text-danger">*</span></label>
+                                                    <input asp-for="Phone" type="number" class="form-control"  style="border-radius: 10px;">
+                                                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group inputContainer">
+                                                    <label class="font-weight-bold text-dark">Birth Of Date : <span class="text-danger">*</span></label>
+                                                    <input asp-for="Bod" type="date" class="form-control"  style="border-radius: 10px;">
+                                                   <span asp-validation-for="Bod" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group inputContainer">
+                                                    <label class="font-weight-bold text-dark">Address :</label>
+                                                    <textarea asp-for="Address" class="form-control"  style="border-radius: 10px;"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <h5 class="font-weight-bold text-dark" style="font-family: 'Cairo', sans-serif;">Doctor Information</h5><br>
+                                        <div class="row">
+                                             <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="gender" class="font-weight-bold text-dark">Specialization : <span class="text-danger">*</span></label>
+                                                    <select  asp-for="SpecializationId" asp-items="ViewBag.SpecializationId" class="form-control">
+                                                        <option selected disabled>--Select Specialization--</option>
+                                                    </select>
+                                                    <span asp-validation-for="SpecializationId" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="nal_id" class="font-weight-bold text-dark">Clinic : <span class="text-danger">*</span></label>
+                                                    <select asp-for="DepartmentId" asp-items="ViewBag.DepartmentId" class="form-control">
+                                                        <option selected disabled>--Choose Clinic--</option>
+                                                    </select>
+                                                    <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold text-dark">Salary : <span class="text-danger">*</span></label>
+                                                    <input asp-for="Salary" class="form-control"  style="border-radius: 10px;">
+                                                    <span asp-validation-for="Salary" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+
+                                        <h5 class="font-weight-bold text-dark" style="font-family: 'Cairo', sans-serif;">Attachments</h5><br/>
+                                        
+                                         <div class="item form-group py-2">
+											<label class="text-dark font-weight-bold col-md-3 col-sm-3 label-align">Doctor Image :</label>
+											<div class="col-md-6 col-sm-6 ">
+											<img class="img-fluid" src =@Url.Content("~/Attachments/DoctorAttachments/"+ @Model.ImagePath) alt="iamge" width=100 height=100/>
+											</div>
+										</div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <input asp-for="ImageFile" class="form-control-file" required/>
+                                                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                                                </div>
+                                             </div>
+                                         </div>
+                                        <input class="btn float-right btn-lg text-white" style="background-color: #0e7c06;" type="submit" value="Save Data" />
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+    
+                                </div>
+                            </div>
+                        </div>
+                    </div>

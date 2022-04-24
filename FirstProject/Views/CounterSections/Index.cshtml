@@ -1,0 +1,81 @@
+﻿@model IEnumerable<FirstProject.Models.CounterSection>
+
+@{
+    ViewData["Title"] = "Counter Section";
+    ViewData["AdminId"] = ViewBag.AdminId;
+    ViewData["AdminName"] = ViewBag.AdminName;
+    ViewData["AdminIamge"] = ViewBag.AdminIamge;
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+    int counter = 1;
+}
+
+
+<div class="pagetitle">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a asp-controller="AdminDashboard" asp-action="Index">Home</a></li>
+          <li class="breadcrumb-item">Counter Section</li>
+         
+        </ol>
+      </nav>
+</div><!-- End Page Title -->
+<div class="row">
+<div class="col-md-12 col-sm-12 mb-30">
+    <div class="card card-statistics h-100">
+                <div class="card-body">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Counter Section</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                      <div class="row">
+                          <div class="col-sm-12">
+                            <div class="card-box table-responsive">
+                    <p class="text-muted font-13 m-b-30">
+                     
+                       <br><br>
+                    </p>
+                    <table class="table table-hover table-sm table-bordered p-0" style="width:100%;text-align: center">
+                      <thead class="bg-dark text-white font-weight-bold">
+                        <tr>
+                            <th>#</th>
+                          <th>Happy Peopel</th>
+                          <th>Surgery Comeplet</th>
+                          <th>Expert Doctor</th>
+                          <th>Wordwide Branch</th>
+                          <th>Processes</th>
+                        </tr>
+                      </thead>
+                      <tbody class="font-weight-bold">
+                      @foreach (var item in Model) {
+                           
+                        <tr>
+                          <td>@counter</td>
+                          <td>@Html.DisplayFor(modelItem => item.HappyPeopel)</td>
+                          <td>@Html.DisplayFor(modelItem => item.SurgeryComeplet)</td>
+                          <td>@Html.DisplayFor(modelItem => item.ExpertDoctor)</td>
+                          <td>@Html.DisplayFor(modelItem => item.WordwideBranch)</td>
+                          <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-info btn-sm" role="button" aria-pressed="true" title="Edit"><i class="fa fa-edit"></i></a> 
+                          </td>
+                       </tr>
+                        counter++;
+                       }
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+           </div>
+          </div>
+          </div>
+          </div>
+
+</div>

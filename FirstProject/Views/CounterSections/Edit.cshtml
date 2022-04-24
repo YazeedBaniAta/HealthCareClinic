@@ -1,0 +1,83 @@
+﻿@model FirstProject.Models.CounterSection
+
+@{
+    ViewData["Title"] = "Edit Counter Section";
+	ViewData["AdminId"] = ViewBag.AdminId;
+    ViewData["AdminName"] = ViewBag.AdminName;
+    ViewData["AdminIamge"] = ViewBag.AdminIamge;
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+
+
+
+<div class="pagetitle">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a asp-controller="AdminDashboard" asp-action="Index">Home</a></li>
+          <li class="breadcrumb-item"><a asp-action="Index" asp-controller="CounterSections">Counter Sections</a></li>
+          <li class="breadcrumb-item active">Edit CounterSection</li>
+        </ol>
+      </nav>
+</div><!-- End Page Title -->
+
+<div class="clearfix"></div>
+
+					<div class="row">
+						<div class="col-md-12 col-sm-12 ">
+							<div class="card card-statistics h-100">
+							 <div class="card-body">
+								<div class="x_panel">
+									<div class="x_title">
+									<h2>Edit Counter Section</h2>
+									<ul class="nav navbar-right panel_toolbox">
+										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+										<li><a class="close-link"><i class="fa fa-close"></i></a></li>
+									</ul>
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+									<br />
+									<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" asp-action="Edit" enctype="multipart/form-data">
+										 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+										<input type="hidden" asp-for="Id" />
+										 <div class="item form-group">
+											<label class="text-dark font-weight-bold col-md-3 col-sm-3 label-align">Happy Peopel <span class="text-danger">*</span></label>
+											<div class="col-md-6 col-sm-6 ">
+												<input asp-for="HappyPeopel" class="form-control " required />
+												<span asp-validation-for="HappyPeopel" class="text-danger"></span>
+											</div>
+										</div>
+										<div class="item form-group py-2">
+											<label class="text-dark font-weight-bold col-md-3 col-sm-3 label-align">Surgery Comeplet <span class="text-danger">*</span></label>
+											<div class="col-md-6 col-sm-6 ">
+												<input asp-for="SurgeryComeplet" class="form-control " required />
+												<span asp-validation-for="SurgeryComeplet" class="text-danger"></span>
+											</div>
+										</div>
+										<div class="item form-group py-2">
+											<label class="text-dark font-weight-bold col-md-3 col-sm-3 label-align">Expert Doctor <span class="text-danger">*</span></label>
+											<div class="col-md-6 col-sm-6 ">
+												<input asp-for="ExpertDoctor" class="form-control " required />
+												<span asp-validation-for="ExpertDoctor" class="text-danger"></span>
+											</div>
+										</div>
+										<div class="item form-group py-2">
+											<label class="text-dark font-weight-bold col-md-3 col-sm-3 label-align">Wordwide Branch <span class="text-danger">*</span></label>
+											<div class="col-md-6 col-sm-6 ">
+												<input asp-for="WordwideBranch" class="form-control " required />
+												<span asp-validation-for="WordwideBranch" class="text-danger"></span>
+											</div>
+										</div>
+										<div class="item form-group py-2">
+											<div class="col-md-6 col-sm-6 offset-md-3">
+												<input type="submit" class="btn btn-success text-white" value="Save Data">
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>
+					</div>

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<FirstProject.Models.Invoice>
+@{
+    ViewData["Title"] = "My Invoices";
+
+    //For Session
+    ViewData["PatientId"] = ViewBag.PatientId;
+    ViewData["PatientName"] = ViewBag.PatientName;
+
+    ViewData["siteName"] = ViewBag.siteName;
+    ViewData["siteAddress"] = ViewBag.siteAddress;
+    ViewData["siteLogo"] = ViewBag.siteLogo;
+    ViewData["EmaegencyCase"] = ViewBag.EmaegencyCase;
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int counter = 1;
+}
+
+
+<div class="row">
+<div class="col-md-12 col-sm-12 mb-30">
+    <div class="card card-statistics h-100">
+                <div class="card-body">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Invoices Information</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                      <div class="row">
+                          <div class="col-sm-12">
+                            <div class="card-box table-responsive">
+                    <p class="text-muted font-13 m-b-30">
+                       
+                       <br><br>
+                    </p>
+                    <table id="datatable-buttons" class="table table-hover table-sm table-bordered p-0" style="width:100%;text-align: center">
+                      <thead class="bg-dark text-white font-weight-bold">
+                        <tr>
+                            <th>#</th>
+                          <th>Doctor Name</th>
+                          <th>Booking Amount</th>
+                          <th>Booking Date</th>
+                         
+                        </tr>
+                      </thead>
+                      <tbody class="font-weight-bold">
+                      @foreach (var item in Model) {
+                           
+                        <tr>
+                          <td>@counter</td>
+                          <td>Dr-@Html.DisplayFor(modelItem => item.Doctor.FirstName) @Html.DisplayFor(modelItem => item.Doctor.LastName)</td>
+                          <td>@Html.DisplayFor(modelItem => item.BookingAmount)</td>
+                          <td>@Html.DisplayFor(modelItem => item.BookingDate)</td>
+                       </tr>
+                        counter++;
+                       }
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+           </div>
+          </div>
+          </div>
+          </div>
+
+</div>

@@ -1,0 +1,93 @@
+﻿@model FirstProject.Models.PartnersSection
+
+@{
+    ViewData["Title"] = "Add Partner";
+	ViewData["AdminId"] = ViewBag.AdminId;
+    ViewData["AdminName"] = ViewBag.AdminName;
+    ViewData["AdminIamge"] = ViewBag.AdminIamge;
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+
+<div class="pagetitle">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a asp-controller="AdminDashboard" asp-action="Index">Home</a></li>
+          <li class="breadcrumb-item"><a asp-action="Index" asp-controller="PartnersSections">Partners</a></li>
+          <li class="breadcrumb-item active">Add Partner</li>
+        </ol>
+      </nav>
+</div><!-- End Page Title -->
+
+<div class="clearfix"></div>
+
+					<div class="row">
+						<div class="col-md-12 col-sm-12 ">
+							<div class="card card-statistics h-100">
+                <div class="card-body">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>Add Partner</h2>
+									<ul class="nav navbar-right panel_toolbox">
+										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+										<li><a class="close-link"><i class="fa fa-close"></i></a></li>
+									</ul>
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+									<br />
+									<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" asp-action="Create" enctype="multipart/form-data">
+										 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+										
+										 <div class="item form-group py-2">
+                                            <label class="text-dark font-weight-bold col-md-3 col-sm-3 label-align">Uplode Image <span class="text-danger">*</span></label>
+											<input class="form-control-file" asp-for="ImageFile" />
+                                             <span asp-validation-for="ImageFile" class="text-danger"></span>
+                                          </div>
+						
+										<div class="item form-group py-2">
+											<div class="col-md-6 col-sm-6 offset-md-3">
+												<input type="submit" class="btn btn-success text-white" value="Save Data">
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>
+					</div>
+
+
+
+@*
+<h1>Create</h1>
+
+<h4>PartnersSection</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+             <div class="item form-group py-2">
+                                            <label class="text-dark font-weight-bold col-md-3 col-sm-3 label-align">Uplode Image <span class="text-danger">*</span></label>
+											<input class="form-control-file" asp-for="ImageFile" />
+                                             <span asp-validation-for="ImageFile" class="text-danger"></span>
+                                          </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+*@

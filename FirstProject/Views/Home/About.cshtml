@@ -1,0 +1,146 @@
+﻿@{
+    ViewData["Title"] = "About Us";
+	//For Session
+	ViewData["PatientId"] = ViewBag.PatientId;
+	ViewData["PatientName"] = ViewBag.PatientName;
+
+	ViewData["siteName"] = ViewBag.siteName;
+    ViewData["siteAddress"] = ViewBag.siteAddress;
+	ViewData["siteEmail"] = ViewBag.siteEmail;
+	ViewData["siteLogo"] = ViewBag.siteLogo;
+	ViewData["EmaegencyCase"] = ViewBag.EmaegencyCase;
+}
+
+
+<section class="page-title bg-1">
+  <div class="overlay"></div>
+  <div class="container" data-aos="fade-down">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block text-center">
+          <span class="text-white">About Us</span>
+          <h1 class="text-capitalize mb-5 text-lg">About Us</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section about-page">
+	<div class="container" data-aos="fade-down">
+		<div class="row">
+			<div class="col-lg-4">
+				<img src="~/Attachments/AdminAttachments/CEO.png" alt="" class="img-fluid w-100">
+			</div>
+			<div class="col-lg-8">
+				<p class="text-dark font-weight-bold h3">A Word from the Founder</p>
+				<p>The HealthCare Clinic was established in 1987 with the vision of providing the best modern international healthcare in a patient-centred environment.
+						For more than three decades we have consistently maintained a reputation for excellence – a reputation that has enabled us to proudly be one of the longest established private healthcare facilities in Dubai.
+						Patient safety and ethical practise are at the centre of all that we do.We have been recognised with full accreditation by two of the top accrediting bodies worldwide: the ACHS- Australian Council on Healthcare Standards International (ACHSI EQuiP6), and the Joint Commission International (JCI), considered the gold standard in global health care accreditation.
+				</p>
+				<img src="~/assets/images/about/sign.png" alt="" class="img-fluid">
+				<h4>DR. Khaled ATATIRK</h4>
+				<p>Founder of HealthCare Clinic</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section awards">
+	<div class="container" data-aos="fade-down">
+		<div class="row align-items-center">
+			<div class="col-lg-4">
+				<h2 class="title-color">Our Doctors achievements </h2>
+				<div class="divider mt-4 mb-5 mb-lg-0"></div>
+			</div>
+			<div class="col-lg-8">
+				<div class="row">
+					<div class="col-lg-4 col-md-6 col-sm-6">
+						<div class="award-img">
+							<img src="~/assets/images/about/3.png" alt="" class="img-fluid">
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6 col-sm-6">
+						<div class="award-img">
+							<img src="~/assets/images/about/4.png" alt="" class="img-fluid">
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6 col-sm-6">
+						<div class="award-img">
+							<img src="~/assets/images/about/1.png" alt="" class="img-fluid">
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6 col-sm-6">
+						<div class="award-img">
+							<img src="~/assets/images/about/2.png" alt="" class="img-fluid">
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6 col-sm-6">
+						<div class="award-img">
+							<img src="~/assets/images/about/5.png" alt="" class="img-fluid">
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6 col-sm-6">
+						<div class="award-img">
+							<img src="~/assets/images/about/6.png" alt="" class="img-fluid">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="fetaure-page mb-3">
+	<div class="container" data-aos="fade-down">
+		<div class="row">
+			<div class="col-lg-4">
+				<img src="~/assets/images/about/abouT.png" alt="" class="img-fluid w-100">
+			</div>
+			<div class="col-lg-8">
+				<p class="text-dark font-weight-bold h5">PROVIDING RELIABLE PATIENT-CENTRED HEALTHCARE</p>
+				<p>'We grew in parallel with the Emirate; when we opened there weren't any multidisciplinary medical clinics – they were largely single doctor operations that were run as such', says Dr. Ravic. 'We have no intention of changing our policy or vision. It has served us and our patients well until now and will continue to do so in the future.'	</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<section class="section testimonial">
+	<div class="container" data-aos="fade-down">
+		<div class="row">
+			<div class="col-lg-6 offset-lg-6">
+				<div class="section-title">
+					<h2 class="mb-4">What they say about us</h2>
+					<div class="divider  my-4"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row align-items-center">
+			<div class="col-lg-6 testimonial-wrap offset-lg-6">
+
+				@foreach(var tes in ViewBag.itemT2)
+				{
+					@if(tes.Status == "1")
+					{
+						<div class="testimonial-block">
+							<div class="client-info ">
+								<h4>@tes.Subject</h4>
+								<span>@tes.Patient.FirstName</span>
+							</div>
+							<p>
+								@tes.Description
+							</p>
+							<i class="icofont-quote-right text-danger"></i>
+					
+						</div>
+					}
+				}
+
+			
+				
+
+			</div>
+		</div>
+	</div>
+</section>

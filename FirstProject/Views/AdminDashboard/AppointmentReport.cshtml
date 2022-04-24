@@ -1,0 +1,125 @@
+﻿@model IEnumerable<FirstProject.Models.Appointment>
+
+@{
+    ViewData["Title"] = "Appointments Report";
+    ViewData["AdminId"] = ViewBag.AdminId;
+    ViewData["AdminName"] = ViewBag.AdminName;
+    ViewData["AdminIamge"] = ViewBag.AdminIamge;
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+    int counter = 1;
+}
+
+
+<div class="pagetitle">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a asp-controller="AdminDashboard" asp-action="Index">Home</a></li>
+          <li class="breadcrumb-item">Appointments Report</li>
+         
+        </ol>
+      </nav>
+</div><!-- End Page Title -->
+
+
+
+<div class="row">
+<div class="col-md-12 col-sm-12 mb-30">
+   
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Appointments Report</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                      <div class="row">
+
+                          <form asp-action="AppointmentReport" asp-controller="AdminDashboard">
+                            <div class="col-lg-12">
+                              <div class="item form-group">
+                                   <div class="col-md-4 col-sm-4 ">
+                                       <label class="text-dark px-2 label-align font-weight-bold">From Date: <span class="text-danger">*</span></label>
+									 <input type="date" name="SearchFrom" id="SearchFrom" class="form-control" required/>
+								  </div>
+                                  <div class="col-md-4 col-sm-4 ">
+                                      <label class="text-dark px-2 label-align font-weight-bold">To Date: <span class="text-danger">*</span></label>
+									 <input type="date" name="SearchTo" id="SearchTo" class="form-control" required/>
+								  </div>
+                                   <div class="col-md-4 col-sm-4 ">
+                                       <label class="text-dark px-2 label-align font-weight-bold">Select The Doctor:</label>
+									 <select name="DoctorId" asp-items="ViewBag.DoctorId" class="form-control">
+                                             <option selected disabled>--Choose Doctor--</option>
+                                      </select>
+								  </div>
+                                   <div class="col-md-4 col-sm-4 ">
+                                        <label class="text-dark px-2 label-align font-weight-bold">To Clear Filters:</label><br />
+                                       <a class="text-danger" asp-controller="AdminDashboard" asp-action="AppointmentReport">Clear Filters</a>
+								  </div>
+
+                                </div>
+								<div class="item form-group py-2">
+									<button type="submit" class="btn btn-sm btn-success">Search</button>
+								</div>
+                             </div>
+                          </form>
+                           <hr />
+                          <div class="col-sm-12">
+                            <div class="card-box table-responsive">
+                    
+                    <table id="datatable-buttons" class="table table-hover table-sm table-bordered p-0" style="width:100%;text-align: center">
+                      <thead class="bg-dark text-white font-weight-bold">
+                        <tr>
+                           <th>#</th>
+                          <th>Patient Name</th>
+                          <th>Doctor Name</th>
+                          <th>Clinic Name</th>
+                          <th>Appointment Date</th>
+                          <th>Appointment Time</th>
+                          <th>Appointment Status</th>
+                        </tr>
+                      </thead>
+                      <tbody class="font-weight-bold">
+                      @foreach (var item in Model) {
+                           
+                        <tr>
+                          <td>@counter</td>
+                          <td>@Html.DisplayFor(modelItem => item.Patient.FirstName)</td>
+                          <td>Dr-@Html.DisplayFor(modelItem => item.Doctor.FirstName)</td>
+                          <td> @Html.DisplayFor(modelItem => item.Department.Name)</td>
+                          <td> @Html.DisplayFor(modelItem => item.AppointmentDate)</td>
+                          <td> @Html.DisplayFor(modelItem => item.AppointmentTime)</td>
+                         <td>
+                             <div class="h4">
+
+                             
+                           @if(item.Status == "0"){
+                              <span class="badge badge-warning h5">pending request</span>                            
+                            }
+                             @if(item.Status == "1"){
+                              <span class="badge badge-success h5">approved</span>                            
+                            }
+                             @if(item.Status == "-1"){
+                              <span class="badge badge-danger h5">rejected</span>                            
+                            } 
+                            </div>
+                         </td>
+                          
+                       </tr>
+                        counter++;
+                       }               
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+           </div>
+          </div>
+          
+
+</div>
+

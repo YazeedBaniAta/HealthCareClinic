@@ -1,0 +1,112 @@
+﻿@model FirstProject.Models.User
+
+@{
+    ViewData["Title"] = "LogIn";
+
+    ViewData["siteName"] = ViewBag.siteName;
+    ViewData["siteAddress"] = ViewBag.siteAddress;
+    ViewData["AdminIamge"] = ViewBag.AdminIamge;
+	ViewData["siteLogo"] = ViewBag.siteLogo;
+	ViewData["EmaegencyCase"] = ViewBag.EmaegencyCase;
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!--------------LogIn-------------->
+        <div class="container-fluid pb-5">
+            <div class="row no-gutter">
+                <!-- The image half -->
+                <div class="col-md-6 col-lg-6 col-xl-7 d-none d-md-flex">
+                    <div class="row">
+                        <img src="~/assets/images/bg/login-img.jpg" class="img-fluid h-100 w-100" alt="logo">
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-5 bg-white">
+                    <div class="login d-flex align-items-center py-2">
+                        <div class="container mt-5 p-0">
+                            <div class="row mt-4">
+                                <div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
+                                    <div class="card-sigin">
+                                        <div class="mb-2 d-flex"> <a asp-action="Index" asp-controller="Home"><img src="~/assets/images/logo.png" class="sign-favicon ht-40 w-75" alt="logo"></a><h1 class="main-logo1 ml-1 mr-0 my-auto tx-28"><span class="font-weight-bold" style="color:#06A3DA">Health Care</span></h1></div>
+                                        <div class="card-sigin">
+                                            <div class="main-signup-header">
+                                                <h2 style="color:#06A3DA;">Welcome back!</h2>
+                                                <h5 class="font-weight-semibold mb-4" style="color:#06A3DA;">Please SignIn To Continue</h5>
+                                                <form asp-action="Login" id="login">
+                                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold text-dark">Email : <span class="text-danger">*</span></label>
+                                                        <input asp-for="UserName" class="form-control" autofocus autocomplete="UserName">
+                                                        <span asp-validation-for="UserName" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold text-dark">Password : <span class="text-danger">*</span></label>
+                                                        <input asp-for="Password" type="password" class="form-control">
+                                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                                    </div>
+                                                    <input type="submit" class="btn btn-main-2 btn-block font-weight-bold" value="LogIn"/>
+                                                    <div class="row row-xs"></div>
+                                                </form>
+                                                <div class="main-signin-footer mt-5">
+                                                    @*<p><a  href="#">Forgot Your Password ?</a> </p>*@
+                                                    <p>Dont have account? <a asp-action="Register" asp-controller="Auth" class="font-weight-bold">Create an Account</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-------------- End LogIn-------------->
+        @*
+<h1>Login</h1>
+
+<h4>User</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RoleId" class="control-label"></label>
+                <select asp-for="RoleId" class ="form-control" asp-items="ViewBag.RoleId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdminId" class="control-label"></label>
+                <select asp-for="AdminId" class ="form-control" asp-items="ViewBag.AdminId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="DoctorId" class="control-label"></label>
+                <select asp-for="DoctorId" class ="form-control" asp-items="ViewBag.DoctorId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientId" class="control-label"></label>
+                <select asp-for="PatientId" class ="form-control" asp-items="ViewBag.PatientId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+*@

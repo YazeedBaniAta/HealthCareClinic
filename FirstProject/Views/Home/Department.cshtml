@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Departments";
+	//For Session
+	ViewData["PatientId"] = ViewBag.PatientId;
+	ViewData["PatientName"] = ViewBag.PatientName;
+
+	ViewData["siteName"] = ViewBag.siteName;
+    ViewData["siteAddress"] = ViewBag.siteAddress;
+    ViewData["siteEmail"] = ViewBag.siteEmail;
+	ViewData["siteLogo"] = ViewBag.siteLogo;
+	ViewData["EmaegencyCase"] = ViewBag.EmaegencyCase;
+}
+
+
+
+<section class="page-title bg-1">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row" data-aos="fade-down">
+      <div class="col-md-12">
+        <div class="block text-center">
+          <span class="text-white">All Department</span>
+          <h1 class="text-capitalize mb-5 text-lg">Care Department</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="container py-5 Search-Section">
+      <form method="post" class="search-form form" asp-action="Search" asp-controller="Home">
+        <label class="label">
+            <input type="search" name="SearchFor" id="SearchFor" class="search-field" placeholder="Type The Name Of Doctor Or Clinic..." />
+        </label>
+        <button type="submit" class="search-submit button" ><i class='fa fa-search'></i></button>
+    </form>
+</div>
+
+<section class="section service-2">
+	<div class="container" data-aos="fade-down">
+		<div class="row justify-content-center">
+			<div class="col-lg-7 text-center">
+				<div class="section-title">
+					<h2>Medical Help Straight to Your Door</h2>
+					<div class="divider mx-auto my-4"></div>
+					<p>HealthCare Clinic offers a convenient Service that brings professional medical care straight to the comfort of a patient’s home. Typical health issues dealt with – under this Service include Hypertension, Migraine, Chronic Cough, Bladder Infection, Wound Care, Respiratory Therapy treatments (Nebulisation, Oxygen Administration), Routine Blood Collection, Lower Back Pain, Physiotherapy and Executive Medicals.</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" data-aos="fade-down"> 
+			@foreach(var depart in ViewBag.itemDepartment)
+			{
+				<div class="col-lg-4 col-md-6 ">
+					<div class="department-block mb-5">
+						<img src="~/Attachments/DepartmentAttachments/@depart.ImagePath" alt="" class="img-fluid w-100">
+						<div class="content">
+							<h4 class="mt-4 mb-2 title-color">@depart.Name</h4>
+							<p class="mb-4">@depart.Description</p>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</section>

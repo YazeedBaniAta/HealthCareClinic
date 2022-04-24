@@ -1,0 +1,98 @@
+﻿@model IEnumerable<FirstProject.Models.Doctor>
+
+@{
+    ViewData["Title"] = "Doctor Report";
+    ViewData["AdminId"] = ViewBag.AdminId;
+    ViewData["AdminName"] = ViewBag.AdminName;
+    ViewData["AdminIamge"] = ViewBag.AdminIamge;
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+    int counter = 1;
+}
+
+       
+
+<div class="pagetitle">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a asp-controller="AdminDashboard" asp-action="Index">Home</a></li>
+          <li class="breadcrumb-item">Doctor Report</li>
+         
+        </ol>
+      </nav>
+</div><!-- End Page Title -->
+
+
+<div class="row">
+<div class="col-md-12 col-sm-12 mb-30">
+    <div class="card card-statistics h-100">
+                <div class="card-body">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Doctor Report</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                      <div class="row">
+                          <div class="col-sm-12">
+                            <div class="card-box table-responsive">
+                    <p>
+                         <form asp-action="DoctorReport">
+                           <div class="col-sm-6">
+                              <div class="item form-group">
+                                  <label class="text-dark px-2 label-align font-weight-bold">Clinic: <span class="text-danger">*</span></label>
+											<div class="col-md-12 col-sm-12 ">
+												 <select name="SearchDepartment" asp-items="ViewBag.DepartmentId" class="form-control">
+                                                     <option selected disabled>--Choose Clinic--</option>
+                                                 </select>
+											</div>
+										</div>
+										<div class="item form-group py-2">
+											<button type="submit" class="btn btn-sm btn-success">Search</button>
+										</div>
+                             </div>
+                            </form>
+
+                       <br><br>
+                    </p>
+                    <table id="datatable-buttons" class="table table-hover table-sm table-bordered p-0" style="width:100%;text-align: center">
+                      <thead class="bg-dark text-white font-weight-bold">
+                        <tr>
+                           <th>#</th>
+                          <th>Full Name</th>
+                          <th>Email</th>
+                          <th>Bairth of Date</th>
+                          <th>Clinic</th>
+                          <th>Specialization</th>
+                          <th>Salary</th>
+                        </tr>
+                      </thead>
+                      <tbody class="font-weight-bold">
+                      @foreach (var item in Model) {
+                        <tr>
+                          <td>@counter</td>
+                          <td>Dr-@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</td>
+                          <td> @Html.DisplayFor(modelItem => item.Email)</td>
+                          <td> @Html.DisplayFor(modelItem => item.Bod)</td>
+                          <td> @Html.DisplayFor(modelItem => item.Department.Name)</td>
+                          <td> @Html.DisplayFor(modelItem => item.Specialization.Name)</td>
+                          <td> @Html.DisplayFor(modelItem => item.Salary)</td>
+                       </tr>
+                        counter++;
+                       }
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+           </div>
+          </div>
+          </div>
+          </div>
+
+</div>

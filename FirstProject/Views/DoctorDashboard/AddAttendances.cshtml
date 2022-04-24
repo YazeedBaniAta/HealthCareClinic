@@ -1,0 +1,98 @@
+﻿@model IEnumerable<FirstProject.Models.Attendance>
+
+@{
+    ViewData["Title"] = "Add Attendances";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+
+    ViewData["DoctorId"] = ViewBag.DoctorId;
+    ViewData["DoctorName"] = ViewBag.DoctorName;
+    ViewData["DoctorIamge"] = ViewBag.DoctorIamge;
+
+    var CheckDate = Model.Where(p => p.AttendanceDate == DateTime.Now.ToShortDateString()).Count();
+    var DateNowTime = DateTime.Now.ToLongDateString();
+    int counter = 1;
+}
+
+
+
+<div class="pagetitle">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a asp-controller="DoctorDashboard" asp-action="Index">Home</a></li>
+          <li class="breadcrumb-item active">Add Attendances</li>
+        </ol>
+      </nav>
+</div><!-- End Page Title -->
+
+<div class="row">
+<div class="col-md-12 col-sm-12 mb-30">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Make Attendances</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                      <div class="row">
+                          <div class="col-sm-12">
+                            <div class="card-box">
+                   <form class="form-horizontal form-label-left" asp-action="AddAttendances" >
+						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+						<input type="hidden" name="DId" value="@ViewBag.DoctorId"/>
+                    <table class="table table-hover table-sm table-bordered p-0" style="width:100%;text-align: center">
+                      <thead class="bg-dark text-white font-weight-bold">
+                        <tr>
+                            <th>#</th>
+                          <th>Attendances</th>
+                          <th>Attendance Date</th>
+                        </tr>
+                      </thead>
+                      <tbody class="font-weight-bold">
+                        <tr>
+                           <td>@counter</td>
+                          @if(CheckDate != 0)
+                          {
+                          <td>
+                          
+							<div class="form-check form-check-inline">
+                                 <input class="form-check-input" type="checkbox"  id="CheckAttend" disabled checked>
+                                 <label class="form-check-label" for="CheckAttend"><span class="text-success font-weight-bold ">Your already checked in</span></label>
+                            </div>
+                            </td>
+                            <td>@DateNowTime</td>
+                          }
+                          else 
+                           {
+                              <td>
+							<div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="CheckAttend"  id="CheckAttend" value="1" required  />
+                                <label class="form-check-label" for="CheckAttend"><span class="text-success font-weight-bold ">Check-in</span></label>
+                            </div>
+							</td>		
+                           <td></td>
+                           }
+                       </tr>
+                      </tbody>
+                    </table>
+                     @if(CheckDate != 0)
+                          {
+                            <button class="btn btn-success font-weight-bold"  disabled>You checked-in</button>
+                          }
+                           else
+                           {
+                             <button class="btn btn-success font-weight-bold" type="submit">Save Data</button>                              
+                           }                                        
+                                      
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+           </div>
+          </div>
+         
+
+</div>

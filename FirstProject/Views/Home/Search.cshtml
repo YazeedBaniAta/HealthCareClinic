@@ -1,0 +1,106 @@
+﻿
+@{
+	ViewData["Title"] = "Search";
+
+	//For Session
+	ViewData["PatientId"] = ViewBag.PatientId;
+	ViewData["PatientName"] = ViewBag.PatientName;
+
+	ViewData["siteName"] = ViewBag.siteName;
+	ViewData["siteAddress"] = ViewBag.siteAddress;
+	ViewData["siteEmail"] = ViewBag.siteEmail;
+	ViewData["siteLogo"] = ViewBag.siteLogo;
+	ViewData["EmaegencyCase"] = ViewBag.EmaegencyCase;
+
+	ViewBag.NoResult = "No Result Found Try Search Something Else";
+}
+
+
+<section class="page-title bg-1">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row" data-aos="fade-down">
+      <div class="col-md-12">
+        <div class="block text-center">
+          <span class="text-white h1">Search</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container pt-5 pb-3 Search-Section">
+      <form method="post" class="search-form form" asp-action="Search" asp-controller="Home">
+        <label class="label">
+            <input type="search" name="SearchFor" id="SearchFor" class="search-field" placeholder="Type The Name Of Doctor Or Clinic..." />
+        </label>
+        <button type="submit" class="search-submit button" ><i class='fa fa-search'></i></button>
+    </form>
+</div>
+
+@if(ViewBag.GetDoctorResult != null && ViewBag.GetClinicResult != null)
+{
+	@if(ViewBag.GetDoctorResult.Count > 0)
+	{
+	<section class="service-2 mt-2">
+		<div class="container" data-aos="fade-down">
+			<p class="text-center text-dark font-weight-bold h2 mb-2">Doctor Result</p>
+			<div class="row" data-aos="fade-down"> 
+				
+				@foreach(var Doct in ViewBag.GetDoctorResult)
+				{
+					<div class="col-lg-4 col-md-6 ">
+						<div class="department-block mb-5">
+							<img src="~/Attachments/DoctorAttachments/@Doct.ImagePath" alt="" class="img-fluid w-100">
+							<div class="content">
+								<h4 class="mt-4 mb-2 title-color">Dr-@Doct.FirstName @Doct.LastName</h4>
+								<p class="mb-4">@Doct.Specialization.Name</p>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</section>
+	}
+
+	@if (ViewBag.GetClinicResult.Count > 0)
+	{
+		<section class="service-2 mt-2">
+		<div class="container" data-aos="fade-down">
+			<p class="text-center text-dark font-weight-bold h2 mb-2">Clinic Result</p>
+			<div class="row" data-aos="fade-down"> 
+				@foreach(var depart in ViewBag.GetClinicResult)
+				{
+					<div class="col-lg-4 col-md-6 ">
+						<div class="department-block mb-5">
+							<img src="~/Attachments/DepartmentAttachments/@depart.ImagePath" alt="" class="img-fluid w-100">
+							<div class="content">
+								<h4 class="mt-4 mb-2 title-color">@depart.Name</h4>
+								<p class="mb-4">@depart.Description</p>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</section>
+	}
+}
+else
+{
+<section class="section service-2">
+	<div class="container" data-aos="fade-down">
+		<div class="row" data-aos="fade-down"> 
+			<div class="col-lg-4 col-md-6 ">
+				<div class="department-block mb-5">
+					<p class="text-dark font-weight-bold">@ViewBag.NoResult</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>	
+}
+
+
+

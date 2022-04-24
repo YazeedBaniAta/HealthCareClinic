@@ -1,0 +1,147 @@
+﻿@model IEnumerable<FirstProject.Models.User>
+
+@{
+    ViewData["Title"] = "Users";
+    ViewData["AdminId"] = ViewBag.AdminId;
+    ViewData["AdminName"] = ViewBag.AdminName;
+    ViewData["AdminIamge"] = ViewBag.AdminIamge;
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+    int counter = 1;
+}
+
+
+<div class="pagetitle">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
+          <li class="breadcrumb-item">Users Information</li>
+         
+        </ol>
+      </nav>
+</div><!-- End Page Title -->
+
+<div class="row">
+<div class="col-md-12 col-sm-12 mb-30">
+    <div class="card card-statistics h-100">
+                <div class="card-body">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Users Information</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                      <div class="row">
+                          <div class="col-sm-12">
+                            <div class="card-box table-responsive">
+                   
+                    <table id="datatable-fixed-header" class="table table-hover table-sm table-bordered p-0" style="width:100%;text-align: center">
+                      <thead class="bg-dark text-white font-weight-bold">
+                        <tr>
+                           <th>#</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Position</th>
+                          <th>Processes</th>
+                        </tr>
+                      </thead>
+                      <tbody class="font-weight-bold">
+                      @foreach (var item in Model) {
+                           
+                        <tr>
+                          <td>@counter</td>
+                          <td>
+                          @if(item.Role.Id == 1 )
+                               @Html.DisplayFor(modelItem => item.Admin.FirstName)
+                          @if(item.Role.Id == 2 )
+                               @Html.DisplayFor(modelItem => item.Doctor.FirstName)
+                          @if(item.Role.Id == 3 )
+                               @Html.DisplayFor(modelItem => item.Patient.FirstName)
+                          </td>
+                          <td> @Html.DisplayFor(modelItem => item.UserName)</td>
+                          <td> @Html.DisplayFor(modelItem => item.Role.Rolename)</td>
+                          <td>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-warning btn-sm" role="button" aria-pressed="true" title="Details"><i class="fa fa-eye"></i></a>
+                          </td>
+                       </tr>
+                        counter++;
+                       }
+               
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+           </div>
+          </div>
+          </div>
+          </div>
+
+</div>
+
+@*
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Admin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doctor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patient)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Role)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Admin.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Doctor.Bod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patient.Bod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+*@

@@ -1,0 +1,119 @@
+﻿@model FirstProject.Models.Contact
+@{
+    ViewData["Title"] = "Contact Us";
+    //For Session
+	ViewData["PatientId"] = ViewBag.PatientId;
+	ViewData["PatientName"] = ViewBag.PatientName;
+
+    ViewData["siteName"] = ViewBag.siteName;
+    ViewData["siteAddress"] = ViewBag.siteAddress;
+    ViewData["siteEmail"] = ViewBag.siteEmail;
+	ViewData["siteLogo"] = ViewBag.siteLogo;
+    ViewData["EmaegencyCase"] = ViewBag.EmaegencyCase;
+}
+
+
+<section class="page-title bg-1">
+  <div class="overlay"></div>
+  <div class="container" data-aos="fade-down">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block text-center">
+          <span class="text-white">Contact Us</span>
+          <h1 class="text-capitalize mb-5 text-lg">Get in Touch</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- contact form start -->
+
+<section class="section contact-info pb-0">
+    <div class="container">
+         <div class="row">
+            <div class="col-lg-4 col-sm-6 col-md-6" data-aos="fade-left">
+                <div class="contact-block mb-4 mb-lg-0">
+                    <i class="icofont-live-support"></i>
+                    <h5>Call Us</h5>
+                     @ViewBag.Callus
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-md-6" data-aos="fade-down">
+                <div class="contact-block mb-4 mb-lg-0">
+                    <i class="icofont-support-faq"></i>
+                    <h5>Mail Us</h5>
+                     @ViewBag.mailUsC
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-md-6" data-aos="fade-right">
+                <div class="contact-block mb-4 mb-lg-0">
+                    <i class="icofont-location-pin"></i>
+                    <h5>Location</h5>
+                     @ViewBag.LocationC
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+  
+
+<div class="google-map pt-5" data-aos="fade-down">
+           @* <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7218.32993842357!2d55.326403!3d25.231368!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x1b2d9948d9ef0322!2sGerman%20Medical%20Center%20FZ-LLC!5e0!3m2!1sen!2slb!4v1649139581177!5m2!1sen!2slb" frameborder="0" allowfullscreen loading="lazy"></iframe>*@
+<div id="map"></div>          
+</div>
+<section class="contact-form-wrap section">
+    <div class="container" data-aos="fade-down">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="section-title text-center">
+                    <h2 class="text-md mb-2">Contact us</h2>
+                    <div class="divider mx-auto my-4"></div>
+                    <p class="mb-5">Our private clinics in Dubai are strategically located, with branches throughout the city. We are also opening a dedicated General Hospital at the end of 2021.</p>
+                </div>
+            </div>
+        </div>      
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <form asp-action="Contact">
+                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <input asp-for="FullName"  class="form-control" placeholder="Your Full Name" >
+                                 <span asp-validation-for="FullName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <input asp-for="Email" type="email" class="form-control" placeholder="Your Email Address">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                         <div class="col-lg-6">
+                            <div class="form-group">
+                                <input asp-for="Topic" class="form-control" placeholder="Your Query Topic">
+                                <span asp-validation-for="Topic" class="text-danger"></span>
+                            </div>
+                        </div>
+                         <div class="col-lg-6">
+                            <div class="form-group">
+                                <input asp-for="Phone" type="number" class="form-control" placeholder="Your Phone Number">
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group-2 mb-4">
+                        <textarea asp-for="Message" class="form-control" rows="8" placeholder="Your Message"></textarea>
+                        <span asp-validation-for="Message" class="text-danger"></span>
+                    </div>
+
+                    <div class="text-center">
+                        <input class="btn btn-main btn-round-full" type="submit" value="Send Messege" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

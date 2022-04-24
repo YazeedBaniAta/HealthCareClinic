@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewData["Title"] = "Doctor Dashboard";
+
+    ViewData["DoctorId"] = ViewBag.DoctorId;
+    ViewData["DoctorName"] = ViewBag.DoctorName;
+    ViewData["DoctorIamge"] = ViewBag.DoctorIamge;
+
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+
+    int counter = 1;
+}
+
+   <!-- last process in system -->
+   <div class="row">
+        <div class="col-md-12 mb-30">
+            <div class="card card-statistics h-100">
+                <div class="card-body">
+                    <p style="font-family: 'FontAwesome'" class="h2 text-dark font-weight-bold">Last 5 Appointments</p>
+                    <div class="tab nav-border">
+                        <ul class="nav nav-tabs py-3" role="tablist">
+                            <li class="nav-item">
+                                <button class="nav-link active show btn btn-sm btn-primary" id="home-02-tab" data-toggle="tab" href="#home-02"
+                                   role="tab" aria-controls="home-02"
+                                   aria-selected="true">Appointments</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade active show" id="home-02" role="tabpanel"aria-labelledby="home-02-tab">
+                      <table  class="table table-hover table-sm table-bordered p-0" style="width:100%;text-align: center">
+                      <thead class="bg-dark text-white font-weight-bold">
+                        <tr>
+                           <th>#</th>
+                          <th>patient Name</th>
+                          <th>patient Email</th>
+                          <th>Appointment Time</th>
+                          <th>Appointment Date</th>
+                        </tr>
+                      </thead>
+                      <tbody class="font-weight-bold">
+                     @foreach (var item in ViewBag.Lastappointment) {
+                           
+                        <tr>
+                          <td>@counter</td>
+                          <td>@item.Patient.FirstName @item.Patient.LastName</td>
+                          <td>@item.Patient.Email</td>
+                          <td>@item.AppointmentTime</td>
+                         <td>@item.AppointmentDate.Date</td>
+                       </tr>
+                        counter++;
+                       }
+               
+                      </tbody>
+                    </table>
+                            </div>
+     
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>   
+    <!-- /End last process in system -->
+
+
+    <!-- calendar -->
+            <div class="clearfix"></div>
+            <div class="row py-4">
+              <div class="col-md-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2 class="text-dark h4">Calendar </h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <div id='calendar'></div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+        <!---calendar-->
+

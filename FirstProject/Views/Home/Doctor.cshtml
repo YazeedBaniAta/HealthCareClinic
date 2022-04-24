@@ -1,0 +1,114 @@
+﻿@{
+    ViewData["Title"] = "Doctor";
+	//For Session
+	ViewData["PatientId"] = ViewBag.PatientId;
+	ViewData["PatientName"] = ViewBag.PatientName;
+
+	ViewData["siteName"] = ViewBag.siteName;
+    ViewData["siteAddress"] = ViewBag.siteAddress;
+    ViewData["siteEmail"] = ViewBag.siteEmail;
+	ViewData["siteLogo"] = ViewBag.siteLogo;
+	ViewData["EmaegencyCase"] = ViewBag.EmaegencyCase;
+}
+
+
+<section class="page-title bg-1">
+  <div class="overlay"></div>
+  <div class="container" data-aos="fade-down">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block text-center">
+          <span class="text-white">All Doctors</span>
+          <h1 class="text-capitalize mb-5 text-lg">Specalized doctors</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="container py-5 Search-Section">
+      <form method="post" class="search-form form" asp-action="Search" asp-controller="Home">
+        <label class="label">
+            <input type="search" name="SearchFor" id="SearchFor" class="search-field" placeholder="Type The Name Of Doctor Or Clinic..." />
+        </label>
+        <button type="submit" class="search-submit button" ><i class='fa fa-search'></i></button>
+    </form>
+</div>
+
+
+<!-- portfolio -->
+<section class="section doctors">
+  <div class="container" data-aos="fade-down">
+  	  <div class="row justify-content-center">
+             <div class="col-lg-6 text-center">
+                <div class="section-title">
+                    <h2>Doctors</h2>
+                    <div class="divider mx-auto my-4"></div>
+                    <p>By using cutting-edge technology, this Surgical Department can perform ‘Keyhole’ Surgery, allowing our team of experts to assess and manage a range of conditions </p>
+                </div>
+            </div>
+        </div>
+
+      <div class="col-12 text-center  mb-5">
+	        <div class="btn-group btn-group-toggle " data-toggle="buttons">
+	          <label class="btn active ">
+	            <input type="radio" name="shuffle-filter" value="all" checked="checked" />All Department
+	          </label>
+			  @foreach(var depart in ViewBag.GetDepartment)
+				{
+					<label class="btn ">
+					 <input type="radio" name="shuffle-filter" value="cat_@depart.Id" />@depart.Name
+					</label>
+				}
+	        </div>
+      </div>
+
+    <div class="row shuffle-wrapper portfolio-gallery">
+        @foreach(var doc in ViewBag.GetDoctor)
+				{
+                    <div class="col-lg-3 col-sm-6 col-md-6 mb-4 shuffle-item" data-groups="[&quot;cat_@doc.DepartmentId&quot;]">
+	      	            <div class="position-relative doctor-inner-box">
+		                    <div class="doctor-profile">
+	                           <div class="doctor-img">
+	               		            <img src="~/Attachments/DoctorAttachments/@doc.ImagePath" alt="doctor-image" class="img-fluid w-100">
+	                           </div>
+	                        </div>
+                            <div class="content mt-3">
+                                <div class="sidebar-widget  gray-bg p-4">
+									<h6 class="mb-0 text-white font-weight-bold">Dr-@doc.FirstName @doc.LastName</h6>
+									 <p class="text-white">@doc.Specialization.Name</p>
+									<ul class="list-unstyled lh-35" style="font-size:14px;">
+									  <li class="d-flex justify-content-between align-items-center">
+										<a class="text-white">@doc.AvailableDay</a>
+										<span class="text-white">@doc.AvailableTime</span>
+									  </li>
+									</ul>
+
+									<div class="sidebar-contatct-info mt-4">
+										<p class="mb-0 text-white">Need Urgent Help?</p>
+										<h4 style="color:#007bff;">+962 @doc.Phone</h4>
+									</div>
+								</div>
+                            </div> 
+	      	            </div>
+                 	</div>
+                }
+    </div>
+  </div>
+</section>
+<!-- /portfolio -->
+
+<section class="section cta-page">
+	<div class="container" data-aos="fade-down">
+		<div class="row">
+			<div class="col-lg-7">
+				<div class="cta-content">
+					<div class="divider mb-4"></div>
+					<h2 class="mb-5 text-lg">We are pleased to offer you the <span class="title-color">chance to have the healthy</span></h2>
+					<a asp-controller="Home" asp-action="Appoinment" class="btn btn-main-2 btn-round-full">Get appoinment<i class="icofont-simple-right  ml-2"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

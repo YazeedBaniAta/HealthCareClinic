@@ -1,0 +1,144 @@
+﻿@model FirstProject.Models.Doctor
+
+@{
+    ViewData["Title"] = "Doctor Details";
+    ViewData["AdminId"] = ViewBag.AdminId;
+    ViewData["AdminName"] = ViewBag.AdminName;
+    ViewData["AdminIamge"] = ViewBag.AdminIamge;
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+
+<div class="pagetitle">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a asp-controller="AdminDashboard" asp-action="Index">Home</a></li>
+          <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Doctors">Doctors</a></li>
+          <li class="breadcrumb-item active">Doctor Detail</li>
+        </ol>
+      </nav>
+</div><!-- End Page Title -->
+
+ 
+
+
+         <div class="clearfix"></div>
+                 <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Doctor Detail </h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
+                                        
+                                        <li><a class="close-link"><i class="fa fa-close"></i></a> </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                       <div class="col-md-12 mb-30">
+                           
+ <div class="row">
+        <div class="col-md-12 mb-30">
+            <div class="card card-statistics h-100">
+                <div class="card-body">
+                    <div class="tab nav-border">
+                        <ul class="nav nav-tabs mb-4" role="tablist">
+                            <li class="nav-item">
+                                <button class="btn btn-sm btn-primary active show" id="home-02-tab" data-toggle="tab" href="#home-02"
+                                   role="tab" aria-controls="home-02"
+                                   aria-selected="true">Details</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="btn btn-sm btn-primary" id="profile-02-tab" data-toggle="tab" href="#profile-02"
+                                   role="tab" aria-controls="profile-02"
+                                   aria-selected="false">Attachments</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade active show" id="home-02" role="tabpanel"
+                                 aria-labelledby="home-02-tab">
+                                <table class="table table-striped table-hover" style="text-align:center">
+                                    <tbody>
+                                        <tr>
+                                        <th colspan=4>
+                                            <h5 class="font-weight-bold text-dark" style="font-family: 'Cairo', sans-serif;">Personal Information</h5><br>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Email</th>
+                                        <td class="text-primary font-weight-bold">"  @Html.DisplayFor(model => model.Email) "</td>
+                                        <th scope="row">position</th>
+                                        <td class="text-primary font-weight-bold">"  Doctor "</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">First Name</th>
+                                        <td class="text-primary font-weight-bold">" @Html.DisplayFor(model => model.FirstName) "</td>
+                                        <th scope="row">Last Name</th>
+                                        <td class="text-primary font-weight-bold">" @Html.DisplayFor(model => model.LastName) "</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Phone</th>
+                                        <td class="text-primary font-weight-bold">" @Html.DisplayFor(model => model.Phone) "</td>
+                                        <th scope="row">Birth Of Date</th>
+                                        <td class="text-primary font-weight-bold">"  @Html.DisplayFor(model => model.Bod) "</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Address</th>
+                                        <td class="text-primary font-weight-bold">" @Html.DisplayFor(model => model.Address) "</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan=4>
+                                            <h5 class="font-weight-bold text-dark" style="font-family: 'Cairo', sans-serif;">Doctor Information</h5><br>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Clinic</th>
+                                        <td class="text-primary font-weight-bold">" @Html.DisplayFor(model => model.Department.Name) "</td>
+                                        <th scope="row">Specialization</th>
+                                        <td class="text-primary font-weight-bold">" @Html.DisplayFor(model => model.Specialization.Name) "</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Available Day</th>
+                                        <td class="text-primary font-weight-bold">" @Html.DisplayFor(model => model.AvailableDay) "</td>
+                                        <th scope="row">Available Time</th>
+                                        <td class="text-primary font-weight-bold">" @Html.DisplayFor(model => model.AvailableTime) "</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Salary</th>
+                                        <td class="text-primary font-weight-bold">" @Html.DisplayFor(model => model.Salary) "</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- This code to display images -->
+                            <div class="tab-pane fade" id="profile-02" role="tabpanel" aria-labelledby="profile-02-tab">
+                                <br>
+                                <table class="table mt-2 center-aligned-table mb-0 table table-hover"
+                                       style="text-align:center">
+                                    <thead>
+                                    <tr class="table-secondary">
+                                        <th scope="col">#</th>
+                                        <th scope="col">Image</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style='text-align:center;vertical-align:middle'>
+                                            <td>1</td>
+                                            <td> <img class="img-fluid" src =@Url.Content("~/Attachments/DoctorAttachments/"+ @Model.ImagePath) alt="iamge" width=100 height=100/></td>                                            
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /End This code to display images -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>

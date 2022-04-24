@@ -1,0 +1,116 @@
+﻿@model FirstProject.Models.Appointment
+@{
+    ViewData["Title"] = "Book your Seat";
+    //For Session
+	ViewData["PatientId"] = ViewBag.PatientId;
+	ViewData["PatientName"] = ViewBag.PatientName;
+
+    ViewData["siteName"] = ViewBag.siteName;
+    ViewData["siteAddress"] = ViewBag.siteAddress;
+	ViewData["siteLogo"] = ViewBag.siteLogo;
+    ViewData["EmaegencyCase"] = ViewBag.EmaegencyCase;
+}
+
+
+<section class="page-title bg-1">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block text-center">
+          <span class="text-white">Book your Seat</span>
+          <h1 class="text-capitalize mb-5 text-lg">Appointment</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="appoinment section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+          <div class="mt-3">
+            <div class="feature-icon mb-3">
+              <i class="icofont-support text-lg"></i>
+            </div>
+             <span class="h3">Call for an Emergency Service!</span>
+              <h2 class="text-color mt-3">+@ViewBag.CallUs </h2>
+          </div>
+      </div>
+
+      <div class="col-lg-8">
+           <div class="appoinment-wrap mt-5 mt-lg-0 pl-lg-5">
+            <h2 class="mb-2 title-color">Book an Appointment</h2>
+            <p class="mb-4">To reach out to our HealthCare Clinic Team, please fill in the below form. Our team members will revert back to you shortly.Alternatively, you can reach us on 800352.</p>
+               <form class="appoinment-form" asp-action="Appoinment">
+                   <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                   <input type="hidden" asp-for="PatientId" value="@ViewBag.PatientId"/>
+                   <input type="hidden" name="amount" id="amount" value="10" />
+                    <div class="row">
+                         <div class="col-lg-6">
+                            <div class="form-group">
+                                <select class="form-control" asp-for="DepartmentId" asp-items="ViewBag.DepartmentId">
+                                  <option selected disabled>Choose Clinic</option>
+
+                                </select>
+                                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <select class="form-control" asp-for="DoctorId">
+                                 
+                                  
+                                </select>
+                                <span asp-validation-for="DoctorId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                         <div class="col-lg-6">
+                            <div class="form-group">
+                                <input asp-for="AppointmentDate"  type="date" class="form-control" placeholder="dd/mm/yyyy">
+                                <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <input asp-for="AppointmentTime" type="time" class="form-control" placeholder="Time">
+                                <span asp-validation-for="AppointmentTime" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        @if (ViewBag.PatientId != null)
+                        {
+                           <div class="col-lg-6">
+                            <div class="form-group">
+                                 <label>Credit card</label>
+                                <input name="CreditCard" id="CreditCard" class="form-control" required/>
+                            </div>
+                        </div>
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Booking price</label>
+                                <input type="text" class="form-control" value="10.00 JD" disabled>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                    
+                    <div class="form-group-2 mb-4">
+                        <textarea asp-for="Message" class="form-control" rows="6" placeholder="Your Message"></textarea>
+                    </div>
+                        @if (ViewBag.PatientId != null)
+                        {
+                             <button type="submit" class="btn btn-main btn-round-full" >Make Appoinment<i class="icofont-simple-right ml-2"></i></button>
+                        }
+                        else{
+                             <button type="button" class="btn btn-main btn-round-full" disabled>You have to sign in first</button>
+                        }
+                   </form>
+            </div>
+        </div>
+      </div>
+    </div>
+
+</section>

@@ -1,0 +1,220 @@
+﻿@model FirstProject.Models.Doctor
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+
+    ViewData["DoctorId"] = ViewBag.DoctorId;
+    ViewData["DoctorName"] = ViewBag.DoctorName;
+    ViewData["DoctorIamge"] = ViewBag.DoctorIamge;
+}
+
+
+
+<div class="pagetitle">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a asp-controller="DoctorDashboard" asp-action="Index">Home</a></li>
+          <li class="breadcrumb-item active">Edit Profile</li>
+        </ol>
+      </nav>
+</div><!-- End Page Title -->
+
+
+
+    <main id="main" class="main py-5">
+        <section class="section profile">
+            <div class="row">
+                <div class="col-xl-4">
+
+                    <div class="card">
+                        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                             <img class="img-fluid" src =@Url.Content("~/Attachments/DoctorAttachments/"+ @Model.ImagePath) alt="iamge" width=100 height=100/>
+                            <h2>Dr-@ViewBag.DoctorName</h2>
+                            <h3>Doctor</h3>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-xl-8">
+                    <div class="card">
+                        <div class="card-body pt-3">
+                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                <li class="nav-item"  role="presentation">
+                                    <a id="profile-edit-tab" class="nav-link active" data-toggle="pill" href="#profile-edit" role="tab" aria-controls="profile-edit" aria-selected="true">Edit Profile</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-change-Image-tab" data-toggle="pill" href="#profile-change-Image" role="tab" aria-controls="profile-change-Image" aria-selected="false">Change Image</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-change-password-tab" data-toggle="pill" href="#profile-change-password" role="tab" aria-controls="profile-change-password" aria-selected="false">Change Password</a>
+                                </li>
+
+                            </ul>
+                            <!-- Bordered Tabs -->
+                           
+                            <div class="tab-content pt-4" id="nav-tabContent">
+                                <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="profile-edit-tab" id="profile-edit">
+                                    <!-- Profile Edit Form -->
+                                    <form asp-action="DoctorProfile" >
+                                        <input asp-for="ImagePath" type="hidden"/>
+                                        <input type="hidden" asp-for="Id" />
+                                        <input type="hidden" asp-for="Email" />
+                                        <input asp-for="SpecializationId" class="form-control" type="hidden">
+                                        <input asp-for="Salary" type="hidden"/>
+                                        <input asp-for="Bod" type="hidden"/>
+                                        <input asp-for="DepartmentId" class="form-control" type="hidden">
+                                       
+                                        <div class="row mb-3">
+                                            <label for="fullName" class="col-md-4 col-lg-3  text-dark font-weight-bold">User Name</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input type="text" class="form-control" asp-for="Email" disabled/>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="fullName" class="col-md-4 col-lg-3  text-dark font-weight-bold">First Name</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input asp-for="FirstName" class="form-control" />
+                                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="fullName" class="col-md-4 col-lg-3  text-dark font-weight-bold">Last Name</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input  asp-for="LastName" class="form-control" />
+                                                <span asp-validation-for="LastName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="fullName" class="col-md-4 col-lg-3  text-dark font-weight-bold">Phone</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input asp-for="Phone" class="form-control" />
+                                                 <span asp-validation-for="Phone" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="fullName" class="col-md-4 col-lg-3  text-dark font-weight-bold">Available Day</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input asp-for="AvailableDay" class="form-control" />
+                                                 <span asp-validation-for="AvailableDay" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="fullName" class="col-md-4 col-lg-3  text-dark font-weight-bold">Available Time</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input asp-for="AvailableTime" class="form-control" />
+                                                 <span asp-validation-for="AvailableTime" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="fullName" class="col-md-4 col-lg-3  text-dark font-weight-bold">Address</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <textarea asp-for="Address" class="form-control"></textarea>
+                                                 <span asp-validation-for="Address" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <input type="submit" class="btn btn-primary" value="Save Changes" />
+                                        </div>
+                                    </form><!-- End Profile Edit Form -->
+                                </div>
+
+                                
+                                <div class="tab-pane fade pt-3" role="tabpanel" aria-labelledby="profile-change-Imagetab" id="profile-change-Image">
+                                    <!-- Change Password Form -->
+                                    <form asp-action="DoctorProfile" enctype="multipart/form-data">
+                                        <input type="hidden" asp-for="Id" />
+                                        <input asp-for="FirstName" type="hidden" />
+                                        <input  asp-for="LastName" type="hidden" />
+                                         <input asp-for="Phone" type="hidden" />
+                                         <input asp-for="Address" type="hidden" />
+                                         <input asp-for="IsAvailable" type="hidden" />
+                                         <input asp-for="AvailableDay" type="hidden" />
+                                         <input asp-for="AvailableTime" type="hidden" />
+                                         <input type="hidden" asp-for="Email" />
+                                         <input asp-for="SpecializationId" class="form-control" type="hidden">
+                                        <input asp-for="Salary" type="hidden"/>
+                                        <input asp-for="Bod" type="hidden"/>
+                                        <input asp-for="DepartmentId" class="form-control" type="hidden">
+
+                                         <div class="row mb-3">
+                                             <label for="profileImage" class="col-md-4 col-lg-3  text-dark font-weight-bold">Profile Image</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <img class="img-fluid rounded-circle" src =@Url.Content("~/Attachments/DoctorAttachments/"+ @Model.ImagePath) alt="iamge" width=100 height=100/>
+                                                <div class="pt-2">
+                                                       <div class="item form-group py-2">
+                                                         <label class="text-dark font-weight-bold col-md-3 col-sm-3 label-align">Uplode Image: </label>
+											             <input class="form-control-file" asp-for="ImageFile" />
+                                                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                                                      </div> 
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <input type="submit" class="btn btn-primary" value="Change Image" />
+                                        </div>
+                                    </form><!-- End Change Password Form -->
+                                </div>
+                                
+                                <div class="tab-pane fade pt-3" role="tabpanel" aria-labelledby="profile-change-passwordtab" id="profile-change-password">
+                                    <!-- Change Password Form -->
+                                    <form asp-action="DoctorProfile" enctype="multipart/form-data">
+                                        <input type="hidden" asp-for="Id" />
+                                        <input asp-for="ImagePath" type="hidden"/>
+                                        <input asp-for="FirstName" type="hidden" />
+                                        <input  asp-for="LastName" type="hidden" />
+                                         <input asp-for="Phone" type="hidden" />
+                                         <input asp-for="Address" type="hidden" />
+                                         <input asp-for="IsAvailable" type="hidden" />
+                                         <input asp-for="AvailableDay" type="hidden" />
+                                         <input asp-for="AvailableTime" type="hidden" />
+                                         <input type="hidden" asp-for="Email" />
+                                         <input asp-for="SpecializationId" class="form-control" type="hidden">
+                                        <input asp-for="Salary" type="hidden"/>
+                                        <input asp-for="Bod" type="hidden"/>
+                                         <input asp-for="DepartmentId" class="form-control" type="hidden">
+                                        
+                                         <div class="row mb-3">
+                                            <label for="currentPassword" class="col-md-4 col-lg-3 text-dark font-weight-bold">Current Password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="password" type="password" class="form-control" id="password" required/>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="newPassword" class="col-md-4 col-lg-3 text-dark font-weight-bold">New Password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="newpassword" type="password" class="form-control" id="newPassword" required/>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="renewPassword" class="col-md-4 col-lg-3 text-dark font-weight-bold">Re-enter New Password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="renewpassword" type="password" class="form-control" id="renewPassword" required/>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <input type="submit" class="btn btn-primary" value="Change Password" />
+                                        </div>
+                                    </form><!-- End Change Password Form -->
+                                </div>
+
+                            </div><!-- End Bordered Tabs -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main><!-- End #main -->
+
+

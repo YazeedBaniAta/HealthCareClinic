@@ -1,0 +1,278 @@
+﻿@model FirstProject.Models.Patient
+
+@{
+    ViewData["Title"] = "Patien Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    //For Session
+	ViewData["PatientId"] = ViewBag.PatientId;
+	ViewData["PatientName"] = ViewBag.PatientName;
+
+	ViewData["siteName"] = ViewBag.siteName;
+    ViewData["siteAddress"] = ViewBag.siteAddress;
+    ViewData["siteEmail"] = ViewBag.siteEmail;
+	ViewData["siteLogo"] = ViewBag.siteLogo;
+	ViewData["EmaegencyCase"] = ViewBag.EmaegencyCase;
+}
+
+
+
+
+    <main id="main" class="main">
+        <section class="section profile">
+            <div class="row">
+                <div class="col-xl-4">
+                    <div>
+                        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                             <img class="img-fluid" src =@Url.Content("~/Attachments/PatientsAttachments/"+ @Model.ImagePath) alt="iamge" width=100 height=100/>
+                            <h2 class="mt-3 h3">@ViewBag.PatientName</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-7">
+                    <div class="card" style="border: 5px solid #e12454 !important; border-radius: 2.25rem !important;">
+                        <div class="card-body pt-3">
+                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                <li class="nav-item"  role="presentation">
+                                    <a id="profile-edit-tab" class="nav-link active" data-toggle="pill" href="#profile-edit" role="tab" aria-controls="profile-edit" aria-selected="true">Edit Profile</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-change-Image-tab" data-toggle="pill" href="#profile-change-Image" role="tab" aria-controls="profile-change-Image" aria-selected="false">Change Image</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-change-password-tab" data-toggle="pill" href="#profile-change-password" role="tab" aria-controls="profile-change-password" aria-selected="false">Change Password</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" id="FeedBake-tab-tab" data-toggle="pill" href="#FeedBake" role="tab" aria-controls="FeedBake-tab" aria-selected="false">Give Us FeedBake</a>
+                                </li>
+
+                            </ul>
+                            <!-- Bordered Tabs -->
+                           
+                            <div class="tab-content pt-4" id="nav-tabContent">
+                                <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="profile-edit-tab" id="profile-edit">
+                                    <!-- Profile Edit Form -->
+                                    <form asp-action="PatienProfile">
+                                        <input type="hidden" asp-for="Id" />
+                                        <input type="hidden" asp-for="Email" />
+                                        <input asp-for="Bod" type="hidden"/>
+                                        <input asp-for="Gender" type="hidden"/>
+                                        <input asp-for="ImagePath" type="hidden"/>
+                                        <div class="row mb-3">
+                                            <label for="fullName" class="col-md-4 col-lg-3  text-dark font-weight-bold">User Name</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input type="text" class="form-control" asp-for="Email" disabled/>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="fullName" class="col-md-4 col-lg-3  text-dark font-weight-bold">First Name</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input asp-for="FirstName" class="form-control" />
+                                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="fullName" class="col-md-4 col-lg-3  text-dark font-weight-bold">Last Name</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input  asp-for="LastName" class="form-control" />
+                                                <span asp-validation-for="LastName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="fullName" class="col-md-4 col-lg-3  text-dark font-weight-bold">Phone</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input asp-for="Phone" class="form-control" type="number"/>
+                                                 <span asp-validation-for="Phone" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="fullName" class="col-md-4 col-lg-3  text-dark font-weight-bold">Birth Of Date</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input asp-for="Bod" class="form-control" disabled/>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="fullName" class="col-md-4 col-lg-3  text-dark font-weight-bold">Address</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <textarea asp-for="Address" class="form-control"></textarea>
+                                                 <span asp-validation-for="Address" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <input type="submit" class="btn btn-primary" value="Save Changes" />
+                                        </div>
+                                    </form><!-- End Profile Edit Form -->
+                                </div>
+
+                                
+                                <div class="tab-pane fade pt-3" role="tabpanel" aria-labelledby="profile-change-Imagetab" id="profile-change-Image">
+                                    <!-- Change Password Form -->
+                                    <form asp-action="PatienProfile" enctype="multipart/form-data">
+                                        <input type="hidden" asp-for="Id" />
+                                        <input asp-for="FirstName" type="hidden" />
+                                        <input  asp-for="LastName" type="hidden" />
+                                         <input asp-for="Phone" type="hidden" />
+                                         <input asp-for="Address" type="hidden" />
+                                         <input asp-for="Bod" type="hidden"/>
+                                         <input asp-for="Email" type="hidden"/>
+                                         <input asp-for="Gender" type="hidden"/>
+                                          <div class="row mb-3">
+                                            <label for="profileImage" class="col-md-4 col-lg-3  text-dark font-weight-bold">Profile Image</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <img class="img-fluid rounded-circle" src =@Url.Content("~/Attachments/PatientsAttachments/"+ @Model.ImagePath) alt="iamge" width=100 height=100/>
+                                                <div class="pt-2">
+                                                       <div class="item form-group py-2">
+                                                         <label class="text-dark font-weight-bold col-md-3 col-sm-3 label-align">Uplode Image: </label>
+											             <input class="form-control-file" asp-for="ImageFile" required/>
+                                                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                                                      </div> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="text-center">
+                                            <input type="submit" class="btn btn-primary" value="Change Password" />
+                                        </div>
+                                    </form><!-- End Change Password Form -->
+                                </div>
+                                
+                                <div class="tab-pane fade pt-3" role="tabpanel" aria-labelledby="profile-change-passwordtab" id="profile-change-password">
+                                    <!-- Change Password Form -->
+                                    <form asp-action="PatienProfile" enctype="multipart/form-data">
+                                        <input type="hidden" asp-for="Id" />
+                                        <input asp-for="ImageFile" type="hidden"/>
+                                        <input asp-for="ImagePath" type="hidden"/>
+                                        <input asp-for="FirstName" type="hidden" />
+                                        <input  asp-for="LastName" type="hidden" />
+                                         <input asp-for="Phone" type="hidden" />
+                                         <input asp-for="Address" type="hidden" />
+                                         <input asp-for="Bod" type="hidden"/>
+                                         <input asp-for="Email" type="hidden"/>
+                                         <input asp-for="Gender" type="hidden"/>
+                                         <div class="row mb-3">
+                                            <label for="currentPassword" class="col-md-4 col-lg-3 text-dark font-weight-bold">Current Password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="password" type="password" class="form-control" id="password" required/>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="newPassword" class="col-md-4 col-lg-3 text-dark font-weight-bold">New Password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="newpassword" type="password" class="form-control" id="newPassword" required/>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="renewPassword" class="col-md-4 col-lg-3 text-dark font-weight-bold">Re-enter New Password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="renewpassword" type="password" class="form-control" id="renewPassword" required/>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <input type="submit" class="btn btn-primary" value="Change Password" />
+                                        </div>
+                                    </form><!-- End Change Password Form -->
+                                </div>
+
+                                <div class="tab-pane fade pt-3" role="tabpanel" aria-labelledby="FeedBake-tab" id="FeedBake">
+                                    <!-- FeedBake Form -->
+                                    <form asp-action="FeedBake" asp-controller="Home">
+                                       <input name="PId" type="hidden" value="@ViewBag.PatientId"/>
+                                         <div class="row mb-3">
+                                            <label for="currentPassword" class="col-md-4 col-lg-3 text-dark font-weight-bold">Subject:<span class="text-danger">*</span></label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="subject" type="text" class="form-control" id="subject" required/>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="newPassword" class="col-md-4 col-lg-3 text-dark font-weight-bold">what do want to say:<span class="text-danger">*</span></label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <textarea name="description" class="form-control" id="description" required></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <input type="submit" class="btn btn-primary" value="Send FeedBake" />
+                                        </div>
+                                    </form><!-- End FeedBake Form -->
+                                </div>
+
+                            </div><!-- End Bordered Tabs -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main><!-- End #main -->
+
+@*
+<h1>PatienProfile</h1>
+
+<h4>Patient</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="PatienProfile">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label"></label>
+                <input asp-for="Gender" class="form-control" />
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImagePath" class="control-label"></label>
+                <input asp-for="ImagePath" class="form-control" />
+                <span asp-validation-for="ImagePath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bod" class="control-label"></label>
+                <input asp-for="Bod" class="form-control" />
+                <span asp-validation-for="Bod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+*@

@@ -1,0 +1,249 @@
+﻿@model FirstProject.Models.Doctor
+
+@{
+    ViewData["Title"] = "Add Doctor";
+    ViewData["AdminId"] = ViewBag.AdminId;
+    ViewData["AdminName"] = ViewBag.AdminName;
+    ViewData["AdminIamge"] = ViewBag.AdminIamge;
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+
+      
+<div class="pagetitle">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a asp-controller="AdminDashboard" asp-action="Index">Home</a></li>
+          <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Doctors">Doctors</a></li>
+          <li class="breadcrumb-item active">Add Doctor</li>
+        </ol>
+      </nav>
+</div><!-- End Page Title -->
+     
+
+
+         <div class="clearfix"></div>
+                 <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Add Doctor</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
+                                        
+                                        <li><a class="close-link"><i class="fa fa-close"></i></a> </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                       <div class="col-md-12 mb-30">
+                            <div class="card card-statistics h-100" style="background-color:#ededed";>
+                                <div class="card-body">
+                                  
+                                    <form asp-action="Create" autocomplete="off" enctype="multipart/form-data">
+                                       	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <h5 class="font-weight-bold text-dark" style="font-family: 'Cairo', sans-serif;">personal information</h5><br>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold text-dark">First Name : <span class="text-danger">*</span></label>
+                                                    <input asp-for="FirstName"  type="text"  class="form-control" style="border-radius: 10px;">
+                                                   <span asp-validation-for="FirstName" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold text-dark">Last Name : <span class="text-danger">*</span></label>
+                                                    <input asp-for="LastName" class="form-control" style="border-radius: 10px;" />
+                                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold text-dark">Email : <span class="text-danger">*</span></label>
+                                                    <input asp-for="Email" class="form-control"  style="border-radius: 10px;">
+                                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group inputContainer">
+                                                    <label class="font-weight-bold text-dark">Password :</label>
+                                                    <input id="password" type="password" name="password" class="form-control"  style="border-radius: 10px;" required>
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                         <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold text-dark">Phone : <span class="text-danger">*</span></label>
+                                                    <input asp-for="Phone" type="number" class="form-control"  style="border-radius: 10px;">
+                                                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group inputContainer">
+                                                    <label class="font-weight-bold text-dark">Birth Of Date : <span class="text-danger">*</span></label>
+                                                    <input asp-for="Bod" type="date" class="form-control"  style="border-radius: 10px;">
+                                                   <span asp-validation-for="Bod" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group inputContainer">
+                                                    <label class="font-weight-bold text-dark">Address :</label>
+                                                    <textarea asp-for="Address" class="form-control"  style="border-radius: 10px;"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <h5 class="font-weight-bold text-dark" style="font-family: 'Cairo', sans-serif;">Doctor Information</h5><br>
+                                        <div class="row">
+                                             <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="gender" class="font-weight-bold text-dark">Specialization : <span class="text-danger">*</span></label>
+                                                    <select  asp-for="SpecializationId" asp-items="ViewBag.SpecializationId" class="form-control">
+                                                        <option selected disabled>--Select Specialization--</option>
+                                                    </select>
+                                                    <span asp-validation-for="SpecializationId" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="nal_id" class="font-weight-bold text-dark">Clinic : <span class="text-danger">*</span></label>
+                                                    <select asp-for="DepartmentId" asp-items="ViewBag.DepartmentId" class="form-control">
+                                                        <option selected disabled>--Choose Clinic--</option>
+                                                    </select>
+                                                    <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold text-dark">Salary : <span class="text-danger">*</span></label>
+                                                    <input asp-for="Salary" class="form-control"  style="border-radius: 10px;">
+                                                    <span asp-validation-for="Salary" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+
+                                        <h5 class="font-weight-bold text-dark" style="font-family: 'Cairo', sans-serif;">Attachments</h5><br/>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <input asp-for="ImageFile" class="form-control-file" required/>
+                                                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                                                </div>
+                                             </div>
+                                         </div>
+                                        <input class="btn float-right btn-lg text-white" style="background-color: #0e7c06;" type="submit" value="Save Data" />
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+@*
+<h1>Create</h1>
+
+<div class="field item form-group">
+                                            <label class="text-dark font-weight-bold  col-md-3 col-sm-3  label-align">Time<span class="text-danger">*</span></label>
+                                            <div class="col-md-6 col-sm-6">
+                                                <input class="form-control" class='time' type="time" asp-for="AvailableTime" required='required'></div>
+                                        </div>
+                                        <div class="field item form-group">
+                                            <label class="text-dark font-weight-bold  col-md-3 col-sm-3  label-align">Available Day :<span class="text-danger">*</span></label>
+                                            <div class="col-md-6 col-sm-6">
+                                            <input class="form-control"  asp-for="AvailableDay" type="text" required='required'/></div>
+                                        </div>
+
+
+<h4>Doctor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form >
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bod" class="control-label"></label>
+                <input asp-for="Bod" class="form-control" />
+                <span asp-validation-for="Bod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AvailableTime" class="control-label"></label>
+                <input asp-for="AvailableTime" class="form-control" />
+                <span asp-validation-for="AvailableTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AvailableDay" class="control-label"></label>
+                <input asp-for="AvailableDay" class="form-control" />
+                <span asp-validation-for="AvailableDay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Salary" class="control-label"></label>
+                <input asp-for="Salary" class="form-control" />
+                <span asp-validation-for="Salary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartmentId" class="control-label"></label>
+                <select asp-for="DepartmentId" class ="form-control" asp-items="ViewBag.DepartmentId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="SpecializationId" class="control-label"></label>
+                <select asp-for="SpecializationId" class ="form-control" asp-items="ViewBag.SpecializationId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImagePath" class="control-label"></label>
+                <input asp-for="ImagePath" class="form-control" />
+                <span asp-validation-for="ImagePath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+*@

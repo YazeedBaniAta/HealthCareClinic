@@ -1,0 +1,167 @@
+﻿@model IEnumerable<FirstProject.Models.Appointment>
+
+@{
+    ViewData["Title"] = "Search Appointments";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+
+    ViewData["DoctorId"] = ViewBag.DoctorId;
+    ViewData["DoctorName"] = ViewBag.DoctorName;
+    ViewData["DoctorIamge"] = ViewBag.DoctorIamge;
+    
+    int counter = 1;
+}
+
+
+<div class="pagetitle">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a asp-controller="DoctorDashboard" asp-action="Index">Home</a></li>
+          <li class="breadcrumb-item active">Search Appointment</li>
+        </ol>
+      </nav>
+</div><!-- End Page Title -->
+
+
+<div class="row">
+<div class="col-md-12 col-sm-12 mb-30">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Search Appointments</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content py-3">
+                      <div class="row">
+                         <form asp-action="SearchAppointments" asp-route-id="@ViewBag.DoctorId">
+                          <div class="col-sm-12">
+                              <div class="item form-group">
+                                  
+                                  <label class="text-dark px-2 label-align font-weight-bold">From Date: <span class="text-danger">*</span></label>
+											<div class="col-md-3 col-sm-3 ">
+												<input type="date" name="SearchFrom" id="SearchFrom" class="form-control"/>
+											</div>
+                                            <label class="text-dark px-2 label-align font-weight-bold">To Date: <span class="text-danger">*</span></label>
+											<div class="col-md-3 col-sm-3 ">
+												<input type="date" name="SearchTo" id="SearchTo" class="form-control"/>
+											</div>
+										</div>
+										<div class="item form-group py-2">
+											<button type="submit" class="btn btn-sm btn-success">Search</button>
+										</div>
+
+                                     
+
+</div>
+</form>
+ @if(ViewBag.GetApp != null)
+                            {
+<table class="table table-hover table-sm table-bordered p-0" style="width:100%;text-align: center">
+                      <thead class="bg-dark text-white font-weight-bold">
+                        <tr>
+                           <th>#</th>
+                          <th>Patient Name</th>
+                          <th>Appointment Date</th>
+                          <th>Appointment Time</th>
+                          <th>Appointment Status</th>
+                          <th>Processes</th>
+                        </tr>
+                      </thead>
+                      <tbody class="font-weight-bold">
+                      @foreach (var item in ViewBag.GetApp) {
+                        <tr>
+                          <td>@counter</td>
+                          <td>@item.Patient.FirstName</td>
+                          <td>@item.AppointmentDate</td>
+                          <td>@item.AppointmentTime</td>
+                         <td>
+                             <div class="h4">
+  
+                           @if(item.Status == "0"){
+                              <span class="badge badge-warning h5 btn-round-full">pending request</span>                            
+                            }
+                             @if(item.Status == "1"){
+                              <span class="badge badge-success h5">approved</span>                            
+                            }
+                             @if(item.Status == "-1"){
+                              <span class="badge badge-danger h5">rejected</span>                            
+                            } 
+                            </div>
+                         </td>
+                         <td>
+                             <a asp-action="EditAppointment" asp-controller="DoctorDashboard" asp-route-id="@item.Id" class="btn btn-info btn-sm" role="button" aria-pressed="true" title="Edit"><i class="fa fa-edit"></i></a> 
+                            <a asp-action="AppointmentDetails" asp-controller="DoctorDashboard" asp-route-id="@item.Id" class="btn btn-warning btn-sm" role="button" aria-pressed="true" title="Details"><i class="fa fa-eye"></i></a>
+                            @if(item.Status == "0")
+                            {
+                                                    
+                            }
+                             else
+                            {
+                               <a data-target="#Send_Email_@item.Id" data-toggle="modal" class="btn btn-danger btn-sm text-white" role="button" aria-pressed="true" title="Send Email" style="cursor:pointer;" ><i class="fa fa-envelope-o"></i></a>
+                            }
+
+                         </td>
+                       </tr>
+                        counter++;
+
+                        <!-- Send Email-->
+                                <div class="modal fade" id="Send_Email_@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title" id="exampleModalLabel">Send Email</h5>
+                                                <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form asp-action="SendEmail" asp-controller="DoctorDashboard">
+                                                    <h5 class="text-dark font-weight-bold text-center" style="font-family: 'Cairo', sans-serif;">Send Email to Confirm/Reject the Patient Reservation</h5>
+                                                    <div class="row py-3">
+                                                        <div class="col-lg-12">
+                                                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                                <input type="hidden" name="to" value="@item.Patient.Email" />
+                                                                <div class="form-group">
+                                                                    <label class="control-label text-dark font-weight-bold">Patient Name:</label>
+                                                                    <input class="form-control" type="text" value="@item.Patient.FirstName @item.Patient.LastName" disabled/>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    @if(item.Status == "1"){
+                                                                      <input name="subject" id="subject" class="form-control" value="Health Care/ Confirm Your Reservation" type="hidden"/>                           
+                                                                    }
+                                                                     @if(item.Status == "-1"){
+                                                                      <input name="subject" id="subject" class="form-control" value="Health Care/ Reject Your Reservation" type="hidden"/>                            
+                                                                    }
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="control-label text-dark font-weight-bold">Email Body: <span class="text-danger">*</span></label>
+                                                                    <textarea name="body" id="body" class="form-control" required></textarea>
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary"><i class="fa fa-send-o"></i> Send Mail</button>
+                                                    </div>
+                                                    </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- /End Send Email -->
+
+
+                       }
+                      </tbody>
+                    </table>
+                    }
+
+
+</div>
+</div>
+</div>
+</div>
+</div>

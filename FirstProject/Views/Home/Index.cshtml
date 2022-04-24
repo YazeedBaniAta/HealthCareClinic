@@ -1,0 +1,292 @@
+﻿@model FirstProject.Models.Appointment
+@{
+	ViewData["Title"] = "Health Care";
+	//For Session
+	ViewData["PatientId"] = ViewBag.PatientId;
+	ViewData["PatientName"] = ViewBag.PatientName;
+
+	ViewData["siteName"] = ViewBag.siteName;
+	ViewData["siteEmail"] = ViewBag.siteEmail;
+    ViewData["siteAddress"] = ViewBag.siteAddress;
+	ViewData["siteLogo"] = ViewBag.siteLogo;
+	ViewData["EmaegencyCase"] = ViewBag.EmaegencyCase;
+}
+
+<!-- Slider Start -->
+<section class="banner">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-12 col-xl-7">
+				<div class="block">
+					<div class="divider mb-3"></div>
+					<span class="text-uppercase text-sm letter-spacing text-white">WELCOME TO HEALTH CARE</span>
+					<h1 class="mb-3 mt-3 text-white animate__animated animate__fadeInUp">@ViewBag.BannerT</h1>
+					
+					<p class="mb-4 pr-5 text-white animate__animated animate__fadeInDown">@ViewBag.description</p>
+					<div class="btn-container ">
+						<a asp-controller="Home" asp-action="Appoinment" class="btn btn-main-2 btn-icon btn-round-full animate__animated animate__fadeInUp" >Make Appointment <i class="icofont-simple-right ml-2  "></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="features">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="feature-block d-lg-flex">
+					<div class="feature-item mb-5 mb-lg-0" data-aos="fade-left">
+						<div class="feature-icon mb-4">
+							<i class="icofont-surgeon-alt"></i>
+						</div>
+						<span>24 Hours Service</span>
+						<h4 class="mb-3">Online Appoinment</h4>
+						<p class="mb-4">Get ALl time support for emergency.We have introduced the principle of family medicine.</p>
+						<a asp-controller="Home" asp-action="Appoinment" class="btn btn-main btn-round-full">Make a Appointment</a>
+					</div>
+				
+					<div class="feature-item mb-5 mb-lg-0" data-aos="fade-up">
+						<div class="feature-icon mb-4">
+							<i class="icofont-ui-clock"></i>
+						</div>
+						<span>Timing schedule</span>
+						<h4 class="mb-3">Working Hours</h4>
+						<ul class="w-hours list-unstyled">
+		                    <li class="d-flex justify-content-between">Sun - Wed : <span>@ViewBag.TimeForSun_Wed</span></li>
+		                    <li class="d-flex justify-content-between">Thu - Fri : <span>@ViewBag.TimeForThu_Fri</span></li>
+		                    <li class="d-flex justify-content-between">Sat - sun : <span>@ViewBag.TimeForSat_Sun</span></li>
+		                </ul>
+					</div>
+				
+					<div class="feature-item mb-5 mb-lg-0" data-aos="fade-right">
+						<div class="feature-icon mb-4">
+							<i class="icofont-support"></i>
+						</div>
+						<span>Emegency Cases</span>
+						<h4 class="mb-3">@ViewBag.EmaegencyCase</h4>
+						<p>Get ALl time support for emergency.We have introduced the principle of family medicine.Get Conneted with us for any urgency .</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<section class="section about">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-4 col-sm-6">
+				<div class="about-img">
+					<img src="~/assets/images/about/image-2.jpg" alt="" class="img-fluid" data-aos="fade-up">
+					<img src="~/assets/images/about/img-2.jpg" alt="" class="img-fluid mt-4" data-aos="fade-up">
+				</div>
+			</div>
+			<div class="col-lg-4 col-sm-6">
+				<div class="about-img mt-4 mt-lg-0">
+					<img src="~/assets/images/about/image-3.jpg" alt="" class="img-fluid" data-aos="fade-up">
+				</div>
+			</div>
+			<div class="col-lg-4" data-aos="fade-left">
+				<div class="about-content pl-4 mt-4 mt-lg-0">
+					<h2 class="title-color">Personal care <br>& healthy living</h2>
+					<p class="mt-4 mb-5">Nothing is as important as your health and it is vital to choose only the best hospitals and clinics in Dubai to look after your physical and mental well-being. By doing this, you can completely relax as you place your health confidently in the hands of a true expert who can ensure you remain in your best possible health.</p>
+
+					<a asp-controller="Home" asp-action="Service" class="btn btn-main-2 btn-round-full btn-icon">Services<i class="icofont-simple-right ml-3"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="cta-section gray-bg py-5">
+	<div class="container ">
+		<div class="cta position-relative" data-aos="fade-down">
+			<div class="row">
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="counter-stat">
+						<i class="icofont-doctor"></i>
+						<span class="h3">@ViewBag.HappyPeople</span>k
+						<p>Happy People</p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="counter-stat">
+						<i class="icofont-flag"></i>
+						<span class="h3">@ViewBag.SurgeryComepleted</span>+
+						<p>Surgery Comepleted</p>
+					</div>
+				</div>
+				
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="counter-stat">
+						<i class="icofont-badge"></i>
+						<span class="h3">@ViewBag.ExpertDoctors</span>+
+						<p>Expert Doctors</p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="counter-stat">
+						<i class="icofont-globe"></i>
+						<span class="h3">@ViewBag.WorldwideBranch</span>
+						<p>Worldwide Branch</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section appoinment mt-5">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-6 " data-aos="fade-left">
+				<div class="appoinment-content">
+					<img src="~/assets/images/about/img-3.jpg" alt="" class="img-fluid">
+					<div class="emergency">
+						<h2 class="text-lg"><i class="icofont-phone-circle text-lg"></i>@ViewBag.EmaegencyCase</h2>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-10 " data-aos="fade-right">
+				<div class="appoinment-wrap mt-5 mt-lg-0">
+					<h2 class="mb-2 title-color">Book Appointment</h2>
+					<p class="mb-4">
+					<br/>
+					</p>
+				<form asp-action="Appoinment" class="appoinment-form" >
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+					<input type="hidden" asp-for="PatientId" value="@ViewBag.PatientId"/>
+					<input type="hidden" name="amount" id="amount" value="10" />
+                    <div class="row">
+                         <div class="col-lg-6">
+                            <div class="form-group">
+                                <select class="form-control" asp-for="DepartmentId" asp-items="ViewBag.DepartmentId">
+                                  <option selected disabled>Choose Clinic</option>
+
+                                </select>
+                                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                             <div class="form-group">
+                                <select class="form-control" asp-for="DoctorId">
+                                 
+                                </select>
+                                <span asp-validation-for="DoctorId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                                <input asp-for="AppointmentDate"  type="date" class="form-control" placeholder="dd/mm/yyyy">
+                                <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <input asp-for="AppointmentTime" type="time" class="form-control" placeholder="Time">
+                                <span asp-validation-for="AppointmentTime" class="text-danger"></span>
+                            </div>
+                        </div>
+						@if (ViewBag.PatientId != null)
+                        {
+                           <div class="col-lg-6">
+                            <div class="form-group">
+                                 <label>Credit card</label>
+                                <input name="CreditCard" id="CreditCard" class="form-control" />
+                            </div>
+                        </div>
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Booking price</label>
+                                <input type="text" class="form-control" value="10.00 JD" disabled>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                     <div class="form-group-2 mb-4">
+                        <textarea asp-for="Message" class="form-control" rows="6" placeholder="Your Message"></textarea>
+                    </div>
+                     @if (ViewBag.PatientId != null)
+                        {
+                             <button type="submit" class="btn btn-main btn-round-full" >Make Appoinment<i class="icofont-simple-right ml-2"></i></button>
+                        }
+                        else{
+                             <button type="button" class="btn btn-main btn-round-full" disabled>You have to sign in first</button>
+                        }
+                </form>
+            </div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section testimonial-2 gray-bg">
+	<div class="container">
+		<div class="row justify-content-center" data-aos="fade-down">
+			<div class="col-lg-7">
+				<div class="section-title text-center">
+					<h2 class="text-white">We served over 5000+ Patients</h2>
+					<div class="divider mx-auto my-4"></div>
+					<p class="text-white">“He who has health, has hope; and he who has hope, has everything.”</p>
+					<span class="text-center text-white">— Thomas Carlyle</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row align-items-center" data-aos="fade-down">
+			<div class="col-lg-12 testimonial-wrap-2">
+				@foreach(var tes in ViewBag.itemT)
+				{
+					@if(tes.Status == "1")
+					{
+						<div class="testimonial-block style-2  gray-bg">
+						<div class="testimonial-thumb">
+							<img src="~/Attachments/PatientsAttachments/@tes.Patient.ImagePath" alt="" class="img-fluid">
+						</div>
+						<div class="client-info">
+							<h4>@tes.Subject</h4>
+							<span>@tes.Patient.FirstName</span>
+							<p>
+								@tes.Description
+							</p>
+						</div>
+						<i class="icofont-quote-right"></i>
+					</div>
+					}
+				}
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section clients">
+	<div class="container">
+		<div class="row justify-content-center" data-aos="fade-down">
+			<div class="col-lg-7">
+				<div class="section-title text-center">
+					<h2>Partners who support us</h2>
+					<div class="divider mx-auto my-4"></div>
+					<p>“He who has health, has hope; and he who has hope, has everything.”</p>
+					<span class="text-center">— Thomas Carlyle</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row clients-logo" data-aos="fade-down">
+			@foreach(var pa in ViewBag.itemP)
+			{
+				<div class="col-lg-2">
+					<div class="client-thumb">
+						<img  src="~/Attachments/PartnersSectionAttachment/@pa.ImagePath" alt="" class="img-fluid">
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</section>

@@ -1,0 +1,77 @@
+﻿@model IEnumerable<FirstProject.Models.Attendance>
+
+@{
+    ViewData["Title"] = "Attendances Report";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+    int counter = 1;
+}
+
+
+
+<div class="pagetitle">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a asp-controller="AdminDashboard" asp-action="Index">Home</a></li>
+          <li class="breadcrumb-item active">Attendances Report</li>
+        </ol>
+      </nav>
+</div><!-- End Page Title -->
+
+
+<div class="row">
+<div class="col-md-12 col-sm-12 mb-30">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Search Attendances</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content py-3">
+                      <div class="row">
+                         <form asp-action="AttendancesReport" asp-controller="AdminDashboard">
+                           <div class="col-sm-12">
+                              <div class="item form-group">
+                                  <label class="text-dark px-2 label-align font-weight-bold">Date: <span class="text-danger">*</span></label>
+											<div class="col-md-12 col-sm-12 ">
+												 <input name="SearchFrom" id="SearchFrom" type="date" class="form-control" required>
+											</div>
+										</div>
+										<div class="item form-group py-2">
+											<button type="submit" class="btn btn-sm btn-success">Search</button>
+										</div>
+                             </div>
+                            </form>
+                    @if(Model != null)
+                            {
+                    <table id="datatable-buttons" class="table table-hover table-sm table-bordered p-0" style="width:100%;text-align: center">
+                      <thead class="bg-dark text-white font-weight-bold">
+                        <tr>
+                           <th>#</th>
+                          <th>Doctor Name</th>
+                          <th>Date</th>
+                        </tr>
+                      </thead>
+                      <tbody class="font-weight-bold">
+                      @foreach (var item in Model) {
+                        <tr>
+                          <td>@counter</td>
+                          <td>Dr-@item.Doctor.FirstName @item.Doctor.LastName</td>
+                          <td>@item.AttendanceDate</td>
+                       </tr>
+                        counter++;
+                       }
+                      </tbody>
+                    </table>
+                    }
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+

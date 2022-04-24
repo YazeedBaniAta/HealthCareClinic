@@ -1,0 +1,194 @@
+﻿@model IEnumerable<FirstProject.Models.Appointment>
+
+@{
+    ViewData["Title"] = "Appointment Information";
+    ViewData["AdminId"] = ViewBag.AdminId;
+    ViewData["AdminName"] = ViewBag.AdminName;
+    ViewData["AdminIamge"] = ViewBag.AdminIamge;
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+    int counter = 1;
+}
+
+
+<div class="pagetitle">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a asp-controller="AdminDashboard" asp-action="Index">Home</a></li>
+          <li class="breadcrumb-item">Appointments Information</li>
+         
+        </ol>
+      </nav>
+</div><!-- End Page Title -->
+
+
+
+<div class="row">
+<div class="col-md-12 col-sm-12 mb-30">
+   
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Appointments Information</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                      <div class="row">
+                          <div class="col-sm-12">
+                            <div class="card-box table-responsive">
+                    
+                    <table id="datatable-fixed-header" class="table table-hover table-sm table-bordered p-0" style="width:100%;text-align: center">
+                      <thead class="bg-dark text-white font-weight-bold">
+                        <tr>
+                           <th>#</th>
+                          <th>Patient Name</th>
+                          <th>Doctor Name</th>
+                          <th>Clinic Name</th>
+                          <th>Appointment Date</th>
+                          <th>Appointment Time</th>
+                          <th>Appointment Status</th>
+                          <th>Processes</th>
+                        </tr>
+                      </thead>
+                      <tbody class="font-weight-bold">
+                      @foreach (var item in Model) {
+                           
+                        <tr>
+                          <td>@counter</td>
+                          <td>@Html.DisplayFor(modelItem => item.Patient.FirstName)</td>
+                          <td>Dr-@Html.DisplayFor(modelItem => item.Doctor.FirstName)</td>
+                          <td> @Html.DisplayFor(modelItem => item.Department.Name)</td>
+                          <td> @Html.DisplayFor(modelItem => item.AppointmentDate)</td>
+                          <td> @Html.DisplayFor(modelItem => item.AppointmentTime)</td>
+                         <td>
+                             <div class="h4">
+
+                             
+                           @if(item.Status == "0"){
+                              <span class="badge badge-warning h5">pending request</span>                            
+                            }
+                             @if(item.Status == "1"){
+                              <span class="badge badge-success h5">approved</span>                            
+                            }
+                             @if(item.Status == "-1"){
+                              <span class="badge badge-danger h5">rejected</span>                            
+                            } 
+                            </div>
+                         </td>
+                          <td>
+                           <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-warning btn-sm" role="button" aria-pressed="true" title="Details"><i class="fa fa-eye"></i></a>
+                            <a data-target="#Delete_Appointment_@item.Id" data-toggle="modal" class="btn btn-danger btn-sm text-white" role="button" aria-pressed="true" title="Delete" style="cursor:pointer;"><i class="fa fa-trash"></i></a>
+                          </td>
+                       </tr>
+                        counter++;
+
+                        <!-- Deleted Appointment -->
+                                <div class="modal fade" id="Delete_Appointment_@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title" id="exampleModalLabel">Deleted</h5>
+                                                <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                 <input type="hidden" asp-for="@item.Id" />
+                                                    <h5 class="text-dark font-weight-bold" style="font-family: 'Cairo', sans-serif;">Are you sure you want to delete this?</h5>
+                                                    <label class="text-color-primary font-weight-bold">Patient Name : @Html.DisplayFor(modelItem => item.Patient.FirstName)</label>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /End Deleted Appointment -->
+
+                       }
+                        
+               
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+           </div>
+          </div>
+          
+
+</div>
+
+
+@*
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AppointmentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppointmentTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doctor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patient)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppointmentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppointmentTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Doctor.Bod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patient.Bod)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+*@
