@@ -38,10 +38,10 @@ namespace FirstProject.Controllers
                 ViewBag.patientsCount = _context.Patients.Count();
                 ViewBag.usersCount = _context.Users.Count();
 
+                ViewBag.LastDoctors =  _context.Doctors.OrderByDescending(u=>u.Id).Include(u=>u.Department).Include(u => u.Specialization).Take(5).ToList();
                 ViewBag.Lastpatients =  _context.Patients.OrderByDescending(u=>u.Id).Take(5).ToList();
                 ViewBag.Lastappointment = _context.Appointments.OrderByDescending(u => u.Id).Include(u=>u.Patient).Include(u => u.Doctor).Take(5).ToList();
-                //ViewBag.LastP = _context.Patients.TakeLast(5).ToListAsync();
-
+                
                 return View();
             }
             return RedirectToAction("Page404", "Home");

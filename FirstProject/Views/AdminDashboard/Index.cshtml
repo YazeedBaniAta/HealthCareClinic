@@ -79,11 +79,19 @@
                     <p style="font-family: 'FontAwesome'" class="h2 text-dark font-weight-bold">Last 5 Processes on system</p>
                     <div class="tab nav-border">
                         <ul class="nav nav-tabs py-3" role="tablist">
-                            <li class="nav-item">
-                                <button class="nav-link active show btn btn-sm btn-primary" id="home-02-tab" data-toggle="tab" href="#home-02"
-                                   role="tab" aria-controls="home-02"
-                                   aria-selected="true">Patient</button>
+                             <li class="nav-item">
+                                <button class="nav-link active show btn btn-sm btn-primary" id="home-01-tab" data-toggle="tab" href="#home-01"
+                                   role="tab" aria-controls="home-01"
+                                   aria-selected="true">Doctors</button>
                             </li>
+
+                            <li class="nav-item">
+                                <button class="nav-link btn btn-sm btn-primary" id="home-02-tab" data-toggle="tab" href="#home-02"
+                                   role="tab" aria-controls="home-02"
+                                   aria-selected="true">Patients</button>
+                            </li>
+
+
                             <li class="nav-item">
                                 <button class="nav-link btn btn-sm btn-primary" id="profile-02-tab" data-toggle="tab" href="#profile-02"
                                    role="tab" aria-controls="profile-02"
@@ -91,7 +99,35 @@
                             </li>
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane fade active show" id="home-02" role="tabpanel"aria-labelledby="home-02-tab">
+
+                        <div class="tab-pane fade active show" id="home-01" role="tabpanel"aria-labelledby="home-01-tab">
+                          <table  class="table table-hover table-sm table-bordered p-0" style="width:100%;text-align: center">
+                          <thead class="bg-dark text-white font-weight-bold">
+                            <tr>
+                               <th>#</th>
+                              <th>Doctor Name</th>
+                              <th>Doctor Email</th>
+                              <th>Clinic</th>
+                              <th>Specialization</th>
+                            </tr>
+                          </thead>
+                          <tbody class="font-weight-bold">
+                         @foreach (var item in ViewBag.LastDoctors) {
+                            <tr>
+                              <td>@counter</td>
+                              <td>@item.FirstName @item.LastName</td>
+                              <td>@item.Email</td>
+                              <td>@item.Department.Name</td>
+                             <td>@item.Specialization.Name</td>
+                           </tr>
+                            counter++;
+                           }
+               
+                          </tbody>
+                        </table>
+                     </div>
+
+                            <div class="tab-pane fade" id="home-02" role="tabpanel"aria-labelledby="home-02-tab">
                       <table  class="table table-hover table-sm table-bordered p-0" style="width:100%;text-align: center">
                       <thead class="bg-dark text-white font-weight-bold">
                         <tr>

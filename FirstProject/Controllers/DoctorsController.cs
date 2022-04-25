@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using System.Net.Mail;
 
 namespace FirstProject.Controllers
 {
@@ -121,14 +122,28 @@ namespace FirstProject.Controllers
                         await _context.SaveChangesAsync();
 
                         var LastId = _context.Doctors.OrderByDescending(p => p.Id).FirstOrDefault().Id;
-                        var LaseEmail = _context.Doctors.OrderByDescending(p => p.Id).FirstOrDefault().Email;
+                        var LastEmail = _context.Doctors.OrderByDescending(p => p.Id).FirstOrDefault().Email;
                         User newuser = new User();
-                        newuser.UserName = LaseEmail;
+                        newuser.UserName = LastEmail;
                         newuser.Password = password;
                         newuser.RoleId = 2;
                         newuser.DoctorId = LastId;
                         _context.Add(newuser);
                         await _context.SaveChangesAsync();
+						
+						//To send Email TO Doctor
+						MailMessage message = new MailMessage();
+						message.To.Add(LastEmail);
+						message.Subject = "Greetings From Health Care ";
+						message.Body = "Welcome doctor to our clinic,\n Your email address: " +LastEmail +"\n And the password: "+password+"\n You have to log into the system and change your work days and time and password";
+						message.From = new MailAddress("healthcareBAccoount@gmail.com");
+						message.IsBodyHtml = false;
+						SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+						smtp.Port = 587;
+						smtp.UseDefaultCredentials = true;
+						smtp.EnableSsl = true;
+						smtp.Credentials = new System.Net.NetworkCredential("healthcareBAccoount@gmail.com", "Healthcare#1234");
+						smtp.Send(message);
 
                         _notyf.Success("Doctor Add Successfuly", 3);
                         return RedirectToAction(nameof(Index));
