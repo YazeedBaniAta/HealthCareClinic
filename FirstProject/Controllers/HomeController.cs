@@ -416,6 +416,7 @@ namespace FirstProject.Controllers
         /*------------------------------- PatienProfile ------------------------------------------*/
         public async Task<IActionResult> PatienProfileAsync(decimal? id)
         {
+            if(id == null) { return NotFound(); }
             //This Foe Session
             var checkPatient = HttpContext.Session.GetInt32("PatientId");
             if (checkPatient != null)
@@ -433,6 +434,10 @@ namespace FirstProject.Controllers
                 ViewBag.EmaegencyCase = _context.FeaturesSections.FirstOrDefault().EmaegencyCase;
 
                 var patient = await _context.Patients.FindAsync(id);
+                if (patient == null)
+                {
+                    return NotFound();
+                }
                 if (patient.Id != checkPatient)
                 {
                     return NotFound();

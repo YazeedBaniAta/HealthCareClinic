@@ -313,6 +313,7 @@ namespace FirstProject.Controllers
                 }
 
                 var doctor = await _context.Doctors.FindAsync(id);
+                if(doctor == null) { return NotFound(); }
                 if (doctor.Id != checkDoctor)
                 {
                     _notyf.Error("You don't have no permission to access this page");

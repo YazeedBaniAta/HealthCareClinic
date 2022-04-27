@@ -50,6 +50,7 @@ namespace FirstProject.Controllers
 		/*------------------------------- Profile ------------------------------------------*/
         public async Task<IActionResult> ProfileAsync(decimal? id)
         {
+            if (id == null) { return NotFound(); }
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             if (checkAdmin != null)
             {
@@ -63,6 +64,7 @@ namespace FirstProject.Controllers
                 }
 
                 var admin = await _context.Admins.FindAsync(id);
+                if (admin == null) { return NotFound(); }
                 if (admin.Id != checkAdmin)
                 {
                     _notyf.Error("You don't have no permission to access this page");
