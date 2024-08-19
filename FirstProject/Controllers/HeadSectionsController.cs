@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using FirstProject.Infrastructure;
 
 namespace FirstProject.Controllers
 {
@@ -32,7 +33,7 @@ namespace FirstProject.Controllers
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             if (checkAdmin != null)
             {
-                var AdminInformation = await _context.Admins.FindAsync((decimal)checkAdmin);
+                var AdminInformation = await _context.Admins.FindAsync(checkAdmin);
                 ViewBag.AdminId = checkAdmin;
                 ViewBag.AdminName = AdminInformation.FirstName;
                 ViewBag.AdminIamge = AdminInformation.ImagePath;
@@ -43,7 +44,7 @@ namespace FirstProject.Controllers
         }
 
         // GET: HeadSections/Details/5
-        public async Task<IActionResult> Details(decimal? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -62,12 +63,12 @@ namespace FirstProject.Controllers
 
       
         // GET: HeadSections/Edit/5
-        public async Task<IActionResult> Edit(decimal? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             if (checkAdmin != null)
             {
-                var AdminInformation = await _context.Admins.FindAsync((decimal)checkAdmin);
+                var AdminInformation = await _context.Admins.FindAsync(checkAdmin);
                 ViewBag.AdminId = checkAdmin;
                 ViewBag.AdminName = AdminInformation.FirstName;
                 ViewBag.AdminIamge = AdminInformation.ImagePath;
@@ -92,7 +93,7 @@ namespace FirstProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(decimal id, [Bind("Id,ClinicName,ClinicAddress,ClinicEmail,ImagePath,ImageFile")] HeadSection headSection)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ClinicName,ClinicAddress,ClinicEmail,ImagePath,ImageFile")] HeadSection headSection)
         {
             if (id != headSection.Id)
             {
@@ -135,7 +136,7 @@ namespace FirstProject.Controllers
             return View(headSection);
         }
         
-        private bool HeadSectionExists(decimal id)
+        private bool HeadSectionExists(int id)
         {
             return _context.HeadSections.Any(e => e.Id == id);
         }

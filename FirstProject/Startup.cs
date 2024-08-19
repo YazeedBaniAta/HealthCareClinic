@@ -1,5 +1,5 @@
 using AspNetCoreHero.ToastNotification;
-using FirstProject.Models;
+using FirstProject.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,9 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FirstProject
 {
@@ -27,8 +24,11 @@ namespace FirstProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //This To make connection to DataBase
-            services.AddDbContext<ModelContext>(options => options.UseOracle(Configuration.GetConnectionString("DefaultConnection")));
+            //This To connect to DataBase
+            services.AddDbContext<ModelContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            //register service
+            services.AddScoped<ApplicationDbContextInitialiser>();
 
             //To Start Session
             services.AddDistributedMemoryCache();
@@ -38,7 +38,7 @@ namespace FirstProject
                 options.IdleTimeout = TimeSpan.FromMinutes(60);
             });
 
-            //To Add Notyf to site
+            //To Add Notyf 
             services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
            
             services.AddControllersWithViews();

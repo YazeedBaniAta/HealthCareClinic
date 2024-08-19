@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using FirstProject.Infrastructure;
 using FirstProject.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -37,7 +38,7 @@ namespace FirstProject.Controllers
             var checkPatient = HttpContext.Session.GetInt32("PatientId");
             if (checkPatient != null)
             {
-                var PatienInformation = await _context.Patients.FindAsync((decimal)checkPatient);
+                var PatienInformation = await _context.Patients.FindAsync(checkPatient);
                 ViewBag.PatientId = checkPatient;
                 ViewBag.PatientName = PatienInformation.FirstName;
                 ViewBag.PatientIamge = PatienInformation.ImagePath;
@@ -83,7 +84,7 @@ namespace FirstProject.Controllers
             var checkPatient = HttpContext.Session.GetInt32("PatientId");
             if (checkPatient != null)
             {
-                var PatienInformation = await _context.Patients.FindAsync((decimal)checkPatient);
+                var PatienInformation = await _context.Patients.FindAsync(checkPatient);
                 ViewBag.PatientId = checkPatient;
                 ViewBag.PatientName = PatienInformation.FirstName;
                 ViewBag.PatientIamge = PatienInformation.ImagePath;
@@ -108,7 +109,7 @@ namespace FirstProject.Controllers
             var checkPatient = HttpContext.Session.GetInt32("PatientId");
             if (checkPatient != null)
             {
-                var PatienInformation = await _context.Patients.FindAsync((decimal)checkPatient);
+                var PatienInformation = await _context.Patients.FindAsync(checkPatient);
                 ViewBag.PatientId = checkPatient;
                 ViewBag.PatientName = PatienInformation.FirstName;
                 ViewBag.PatientIamge = PatienInformation.ImagePath;
@@ -133,7 +134,7 @@ namespace FirstProject.Controllers
             var checkPatient = HttpContext.Session.GetInt32("PatientId");
             if (checkPatient != null)
             {
-                var PatienInformation = await _context.Patients.FindAsync((decimal)checkPatient);
+                var PatienInformation = await _context.Patients.FindAsync(checkPatient);
                 ViewBag.PatientId = checkPatient;
                 ViewBag.PatientName = PatienInformation.FirstName;
                 ViewBag.PatientIamge = PatienInformation.ImagePath;
@@ -157,7 +158,7 @@ namespace FirstProject.Controllers
             var checkPatient = HttpContext.Session.GetInt32("PatientId");
             if (checkPatient != null)
             {
-                var PatienInformation = await _context.Patients.FindAsync((decimal)checkPatient);
+                var PatienInformation = await _context.Patients.FindAsync(checkPatient);
                 ViewBag.PatientId = checkPatient;
                 ViewBag.PatientName = PatienInformation.FirstName;
                 ViewBag.PatientIamge = PatienInformation.ImagePath;
@@ -183,7 +184,7 @@ namespace FirstProject.Controllers
             var checkPatient = HttpContext.Session.GetInt32("PatientId");
             if (checkPatient != null)
             {
-                var PatienInformation = await _context.Patients.FindAsync((decimal)checkPatient);
+                var PatienInformation = await _context.Patients.FindAsync(checkPatient);
                 ViewBag.PatientId = checkPatient;
                 ViewBag.PatientName = PatienInformation.FirstName;
                 ViewBag.PatientIamge = PatienInformation.ImagePath;
@@ -204,10 +205,11 @@ namespace FirstProject.Controllers
         }
         //To Get Doctor after filter
         [HttpGet]
-        public JsonResult GetDoctor(int id)
+        public async Task<JsonResult> GetDoctor(int id)
         {
-            var getdoctor = _context.Doctors.Where(x => x.DepartmentId == id).ToListAsync();
+            var getdoctor = await _context.Doctors.Where(x => x.DepartmentId == id).ToListAsync();
 
+            //return getdoctor;
             return Json(getdoctor);
         }
         [HttpPost]
@@ -257,7 +259,7 @@ namespace FirstProject.Controllers
             var checkPatient = HttpContext.Session.GetInt32("PatientId");
             if (checkPatient != null)
             {
-                var PatienInformation = await _context.Patients.FindAsync((decimal)checkPatient);
+                var PatienInformation = await _context.Patients.FindAsync(checkPatient);
                 ViewBag.PatientId = checkPatient;
                 ViewBag.PatientName = PatienInformation.FirstName;
                 ViewBag.PatientIamge = PatienInformation.ImagePath;
@@ -281,7 +283,7 @@ namespace FirstProject.Controllers
             var checkPatient = HttpContext.Session.GetInt32("PatientId");
             if (checkPatient != null)
             {
-                var PatienInformation = await _context.Patients.FindAsync((decimal)checkPatient);
+                var PatienInformation = await _context.Patients.FindAsync(checkPatient);
                 ViewBag.PatientId = checkPatient;
                 ViewBag.PatientName = PatienInformation.FirstName;
                 ViewBag.PatientIamge = PatienInformation.ImagePath;
@@ -328,7 +330,7 @@ namespace FirstProject.Controllers
             var checkPatient = HttpContext.Session.GetInt32("PatientId");
             if (checkPatient != null)
             {
-                var PatienInformation = await _context.Patients.FindAsync((decimal)checkPatient);
+                var PatienInformation = await _context.Patients.FindAsync(checkPatient);
                 ViewBag.PatientId = checkPatient;
                 ViewBag.PatientName = PatienInformation.FirstName;
                 ViewBag.PatientIamge = PatienInformation.ImagePath;
@@ -349,7 +351,7 @@ namespace FirstProject.Controllers
             var checkPatient = HttpContext.Session.GetInt32("PatientId");
             if (checkPatient != null)
             {
-                var PatienInformation = await _context.Patients.FindAsync((decimal)checkPatient);
+                var PatienInformation = await _context.Patients.FindAsync(checkPatient);
                 ViewBag.PatientId = checkPatient;
                 ViewBag.PatientName = PatienInformation.FirstName;
                 ViewBag.PatientIamge = PatienInformation.ImagePath;
@@ -382,13 +384,13 @@ namespace FirstProject.Controllers
 
         /*------------------------------- PatienInvoices ------------------------------------------*/
         //To get the Invoices
-        public async Task<IActionResult> PatienInvoicesAsync(decimal? id)
+        public async Task<IActionResult> PatienInvoicesAsync(int? id)
         {
             //This Foe Session
             var checkPatient = HttpContext.Session.GetInt32("PatientId");
             if (checkPatient != null)
             {
-                var PatienInformation = await _context.Patients.FindAsync((decimal)checkPatient);
+                var PatienInformation = await _context.Patients.FindAsync(checkPatient);
                 ViewBag.PatientId = checkPatient;
                 ViewBag.PatientName = PatienInformation.FirstName;
                 ViewBag.PatientIamge = PatienInformation.ImagePath;
@@ -414,14 +416,14 @@ namespace FirstProject.Controllers
         }
 
         /*------------------------------- PatienProfile ------------------------------------------*/
-        public async Task<IActionResult> PatienProfileAsync(decimal? id)
+        public async Task<IActionResult> PatienProfileAsync(int? id)
         {
             if(id == null) { return NotFound(); }
             //This Foe Session
             var checkPatient = HttpContext.Session.GetInt32("PatientId");
             if (checkPatient != null)
             {
-                var PatienInformation = await _context.Patients.FindAsync((decimal)checkPatient);
+                var PatienInformation = await _context.Patients.FindAsync(checkPatient);
                 ViewBag.PatientId = checkPatient;
                 ViewBag.PatientName = PatienInformation.FirstName;
                 ViewBag.PatientIamge = PatienInformation.ImagePath;
@@ -451,7 +453,7 @@ namespace FirstProject.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PatienProfile(decimal id, [Bind("Id,FirstName,LastName,Email,Gender,Address,Phone,ImagePath,ImageFile,Bod")] Patient patient, string password, string newpassword, string renewpassword)
+        public async Task<IActionResult> PatienProfile(int id, [Bind("Id,FirstName,LastName,Email,Gender,Address,Phone,ImagePath,ImageFile,Bod")] Patient patient, string password, string newpassword, string renewpassword)
         {
             var checkPatient = HttpContext.Session.GetInt32("PatientId");
             ViewBag.PatientId = checkPatient;
@@ -532,7 +534,7 @@ namespace FirstProject.Controllers
             _notyf.Error("Information Edit Successfuly", 3);
             return View(patient);
         }
-        private bool PatientExists(decimal id)
+        private bool PatientExists(int id)
         {
             return _context.Patients.Any(e => e.Id == id);
         }
@@ -540,12 +542,12 @@ namespace FirstProject.Controllers
         /*------------------------------- FeedBake ------------------------------------------*/
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> FeedBake([Bind("Id,Subject,Description,PatientId,Status")] TestimonialSection testimonialSection, decimal PId, string subject, string description)
+        public async Task<IActionResult> FeedBake([Bind("Id,Subject,Description,PatientId,Status")] TestimonialSection testimonialSection, int PId, string subject, string description)
         {
             var checkPatient = HttpContext.Session.GetInt32("PatientId");
             if (checkPatient != null)
             {
-                var PatienInformation = await _context.Patients.FindAsync((decimal)checkPatient);
+                var PatienInformation = await _context.Patients.FindAsync(checkPatient);
                 ViewBag.PatientId = checkPatient;
                 ViewBag.PatientName = PatienInformation.FirstName;
                 ViewBag.PatientIamge = PatienInformation.ImagePath;

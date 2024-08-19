@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FirstProject.Models;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Http;
+using FirstProject.Infrastructure;
 
 namespace FirstProject.Controllers
 {
@@ -28,7 +29,7 @@ namespace FirstProject.Controllers
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             if (checkAdmin != null)
             {
-                var AdminInformation = await _context.Admins.FindAsync((decimal)checkAdmin);
+                var AdminInformation = await _context.Admins.FindAsync(checkAdmin);
                 ViewBag.AdminId = checkAdmin;
                 ViewBag.AdminName = AdminInformation.FirstName;
                 ViewBag.AdminIamge = AdminInformation.ImagePath;
@@ -40,7 +41,7 @@ namespace FirstProject.Controllers
         }
 
         // GET: TestimonialSections/Details/5
-        public async Task<IActionResult> Details(decimal? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -59,12 +60,12 @@ namespace FirstProject.Controllers
         }
 
         // GET: TestimonialSections/Edit/5
-        public async Task<IActionResult> Edit(decimal? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             if (checkAdmin != null)
             {
-                var AdminInformation = await _context.Admins.FindAsync((decimal)checkAdmin);
+                var AdminInformation = await _context.Admins.FindAsync(checkAdmin);
                 ViewBag.AdminId = checkAdmin;
                 ViewBag.AdminName = AdminInformation.FirstName;
                 ViewBag.AdminIamge = AdminInformation.ImagePath;
@@ -90,7 +91,7 @@ namespace FirstProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(decimal id, [Bind("Id,Subject,Description,PatientId,Status")] TestimonialSection testimonialSection)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Subject,Description,PatientId,Status")] TestimonialSection testimonialSection)
         {
             if (id != testimonialSection.Id)
             {
@@ -137,7 +138,7 @@ namespace FirstProject.Controllers
         }
 
        
-        private bool TestimonialSectionExists(decimal id)
+        private bool TestimonialSectionExists(int id)
         {
             return _context.TestimonialSections.Any(e => e.Id == id);
         }

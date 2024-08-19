@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Net.Mail;
 using Microsoft.AspNetCore.Http;
+using FirstProject.Infrastructure;
 
 namespace FirstProject.Controllers
 {
@@ -32,7 +33,7 @@ namespace FirstProject.Controllers
             var checkDoctor = HttpContext.Session.GetInt32("DoctorId");
             if (checkDoctor != null)
             {
-                var DoctorInformation = await _context.Doctors.FindAsync((decimal)checkDoctor);
+                var DoctorInformation = await _context.Doctors.FindAsync(checkDoctor);
                 ViewBag.DoctorId = checkDoctor;
                 ViewBag.DoctorName = DoctorInformation.FirstName;
                 ViewBag.DoctorIamge = DoctorInformation.ImagePath;
@@ -46,12 +47,12 @@ namespace FirstProject.Controllers
         }
 
         /*------------------------------- Attendances ------------------------------------------*/
-        public async Task<IActionResult> AddAttendances(decimal? id)
+        public async Task<IActionResult> AddAttendances(int? id)
         {
             var checkDoctor = HttpContext.Session.GetInt32("DoctorId");
             if (checkDoctor != null)
             {
-                var DoctorInformation = await _context.Doctors.FindAsync((decimal)checkDoctor);
+                var DoctorInformation = await _context.Doctors.FindAsync(checkDoctor);
                 ViewBag.DoctorId = checkDoctor;
                 ViewBag.DoctorName = DoctorInformation.FirstName;
                 ViewBag.DoctorIamge = DoctorInformation.ImagePath;
@@ -89,12 +90,12 @@ namespace FirstProject.Controllers
 
 
         /*------------------------------- Appointments ------------------------------------------*/
-        public async Task<IActionResult> Appointments(decimal? id)
+        public async Task<IActionResult> Appointments(int? id)
         {
             var checkDoctor = HttpContext.Session.GetInt32("DoctorId");
             if (checkDoctor != null)
             {
-                var DoctorInformation = await _context.Doctors.FindAsync((decimal)checkDoctor);
+                var DoctorInformation = await _context.Doctors.FindAsync(checkDoctor);
                 ViewBag.DoctorId = checkDoctor;
                 ViewBag.DoctorName = DoctorInformation.FirstName;
                 ViewBag.DoctorIamge = DoctorInformation.ImagePath;
@@ -118,7 +119,7 @@ namespace FirstProject.Controllers
             var checkDoctor = HttpContext.Session.GetInt32("DoctorId");
             if (checkDoctor != null)
             {
-                var DoctorInformation = await _context.Doctors.FindAsync((decimal)checkDoctor);
+                var DoctorInformation = await _context.Doctors.FindAsync(checkDoctor);
                 ViewBag.DoctorId = checkDoctor;
                 ViewBag.DoctorName = DoctorInformation.FirstName;
                 ViewBag.DoctorIamge = DoctorInformation.ImagePath;
@@ -131,12 +132,12 @@ namespace FirstProject.Controllers
         *  SearchAppointments 
         */
         [HttpPost]
-        public async Task<IActionResult> SearchAppointments(decimal? id, DateTime SearchFrom, DateTime SearchTo)
+        public async Task<IActionResult> SearchAppointments(int? id, DateTime SearchFrom, DateTime SearchTo)
         {
             var checkDoctor = HttpContext.Session.GetInt32("DoctorId");
             if (checkDoctor != null)
             {
-                var DoctorInformation = await _context.Doctors.FindAsync((decimal)checkDoctor);
+                var DoctorInformation = await _context.Doctors.FindAsync(checkDoctor);
                 ViewBag.DoctorId = checkDoctor;
                 ViewBag.DoctorName = DoctorInformation.FirstName;
                 ViewBag.DoctorIamge = DoctorInformation.ImagePath;
@@ -167,12 +168,12 @@ namespace FirstProject.Controllers
         /*  
          *  AppointmentDetails 
          */
-        public async Task<IActionResult> AppointmentDetails(decimal? id)
+        public async Task<IActionResult> AppointmentDetails(int? id)
         {
             var checkDoctor = HttpContext.Session.GetInt32("DoctorId");
             if (checkDoctor != null)
             {
-                var DoctorInformation = await _context.Doctors.FindAsync((decimal)checkDoctor);
+                var DoctorInformation = await _context.Doctors.FindAsync(checkDoctor);
                 ViewBag.DoctorId = checkDoctor;
                 ViewBag.DoctorName = DoctorInformation.FirstName;
                 ViewBag.DoctorIamge = DoctorInformation.ImagePath;
@@ -195,12 +196,12 @@ namespace FirstProject.Controllers
         /*  
         *  EditAppointment 
         */
-        public async Task<IActionResult> EditAppointment(decimal? id)
+        public async Task<IActionResult> EditAppointment(int? id)
         {
             var checkDoctor = HttpContext.Session.GetInt32("DoctorId");
             if (checkDoctor != null)
             {
-                var DoctorInformation = await _context.Doctors.FindAsync((decimal)checkDoctor);
+                var DoctorInformation = await _context.Doctors.FindAsync(checkDoctor);
                 ViewBag.DoctorId = checkDoctor;
                 ViewBag.DoctorName = DoctorInformation.FirstName;
                 ViewBag.DoctorIamge = DoctorInformation.ImagePath;
@@ -224,12 +225,12 @@ namespace FirstProject.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditAppointment(decimal id, [Bind("Id,AppointmentDate,AppointmentTime,Message,DepartmentId,DoctorId,PatientId,Status")] Appointment appointment)
+        public async Task<IActionResult> EditAppointment(int id, [Bind("Id,AppointmentDate,AppointmentTime,Message,DepartmentId,DoctorId,PatientId,Status")] Appointment appointment)
         {
             var checkDoctor = HttpContext.Session.GetInt32("DoctorId");
             if (checkDoctor != null)
             {
-                var DoctorInformation = await _context.Doctors.FindAsync((decimal)checkDoctor);
+                var DoctorInformation = await _context.Doctors.FindAsync(checkDoctor);
                 ViewBag.DoctorId = checkDoctor;
                 ViewBag.DoctorName = DoctorInformation.FirstName;
                 ViewBag.DoctorIamge = DoctorInformation.ImagePath;
@@ -268,7 +269,7 @@ namespace FirstProject.Controllers
 
             return RedirectToAction("Page404", "Home");
         }
-        private bool AppointmentExists(decimal id)
+        private bool AppointmentExists(int id)
         {
             return _context.Appointments.Any(e => e.Id == id);
         }
@@ -298,12 +299,12 @@ namespace FirstProject.Controllers
 
 
         /*------------------------------- Profile ------------------------------------------*/
-        public async Task<IActionResult> DoctorProfileAsync(decimal? id)
+        public async Task<IActionResult> DoctorProfileAsync(int? id)
         {
             var checkDoctor = HttpContext.Session.GetInt32("DoctorId");
             if (checkDoctor != null)
             {
-                var DoctorInformation = await _context.Doctors.FindAsync((decimal)checkDoctor);
+                var DoctorInformation = await _context.Doctors.FindAsync(checkDoctor);
                 ViewBag.DoctorId = checkDoctor;
                 ViewBag.DoctorName = DoctorInformation.FirstName;
                 ViewBag.DoctorIamge = DoctorInformation.ImagePath;
@@ -326,7 +327,7 @@ namespace FirstProject.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DoctorProfile(decimal id, [Bind("Id,FirstName,LastName,Email,Phone,Address,Bod,IsAvailable,AvailableTime,AvailableDay,Salary,DepartmentId,SpecializationId,ImagePath,ImageFile")] Doctor doctor, string password, string newpassword, string renewpassword)
+        public async Task<IActionResult> DoctorProfile(int id, [Bind("Id,FirstName,LastName,Email,Phone,Address,Bod,IsAvailable,AvailableTime,AvailableDay,Salary,DepartmentId,SpecializationId,ImagePath,ImageFile")] Doctor doctor, string password, string newpassword, string renewpassword)
         {
             var checkDoctor = HttpContext.Session.GetInt32("DoctorId");
             ViewBag.DoctorId = checkDoctor;
@@ -407,7 +408,7 @@ namespace FirstProject.Controllers
             ViewData["SpecializationId"] = new SelectList(_context.Specializations, "Id", "Id", doctor.SpecializationId);
             return View(doctor);
         }
-        private bool DoctorExists(decimal id)
+        private bool DoctorExists(int id)
         {
             return _context.Doctors.Any(e => e.Id == id);
         }

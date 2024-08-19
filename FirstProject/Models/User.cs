@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -8,17 +9,19 @@ namespace FirstProject.Models
 {
     public partial class User
     {
-        public decimal Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "Please Enter The Email.")]
         [EmailAddress(ErrorMessage = "Please Enter valid e-mail address.")]
         public string UserName { get; set; }
         [Required(ErrorMessage = "Please Enter The Password.")]
         public string Password { get; set; }
-        public decimal? RoleId { get; set; }
-        public decimal? AdminId { get; set; }
-        public decimal? DoctorId { get; set; }
-        public decimal? PatientId { get; set; }
+        public int? RoleId { get; set; }
+        public int? AdminId { get; set; }
+        public int? DoctorId { get; set; }
+        public int? PatientId { get; set; }
         
 
         public virtual Admin Admin { get; set; }

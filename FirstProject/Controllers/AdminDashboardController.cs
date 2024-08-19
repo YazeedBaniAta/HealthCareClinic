@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using FirstProject.Infrastructure;
 using FirstProject.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,7 +29,7 @@ namespace FirstProject.Controllers
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             if (checkAdmin != null)
             {
-                var AdminInformation = await _context.Admins.FindAsync((decimal)checkAdmin);
+                var AdminInformation = await _context.Admins.FindAsync(checkAdmin);
                 ViewBag.AdminId = checkAdmin;
                 ViewBag.AdminName = AdminInformation.FirstName;
                 ViewBag.AdminIamge = AdminInformation.ImagePath;
@@ -48,13 +49,13 @@ namespace FirstProject.Controllers
         }
 		
 		/*------------------------------- Profile ------------------------------------------*/
-        public async Task<IActionResult> ProfileAsync(decimal? id)
+        public async Task<IActionResult> ProfileAsync(int? id)
         {
             if (id == null) { return NotFound(); }
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             if (checkAdmin != null)
             {
-                var AdminInformation = await _context.Admins.FindAsync((decimal)checkAdmin);
+                var AdminInformation = await _context.Admins.FindAsync(checkAdmin);
                 ViewBag.AdminId = checkAdmin;
                 ViewBag.AdminName = AdminInformation.FirstName;
                 ViewBag.AdminIamge = AdminInformation.ImagePath;
@@ -78,7 +79,7 @@ namespace FirstProject.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Profile(decimal id, [Bind("Id,FirstName,LastName,Phone,ImagePath,ImageFile")] Admin admin, string password, string newpassword, string renewpassword)
+        public async Task<IActionResult> Profile(int id, [Bind("Id,FirstName,LastName,Phone,ImagePath,ImageFile")] Admin admin, string password, string newpassword, string renewpassword)
         {
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             ViewBag.AdminId = checkAdmin;
@@ -161,7 +162,7 @@ namespace FirstProject.Controllers
             }
             return View(admin);
         }
-        private bool AdminExists(decimal id)
+        private bool AdminExists(int id)
         {
             return _context.Admins.Any(e => e.Id == id);
         }
@@ -172,7 +173,7 @@ namespace FirstProject.Controllers
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             if (checkAdmin != null)
             {
-                var AdminInformation = await _context.Admins.FindAsync((decimal)checkAdmin);
+                var AdminInformation = await _context.Admins.FindAsync(checkAdmin);
                 ViewBag.AdminId = checkAdmin;
                 ViewBag.AdminName = AdminInformation.FirstName;
                 ViewBag.AdminIamge = AdminInformation.ImagePath;
@@ -187,12 +188,12 @@ namespace FirstProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DoctorReport(decimal? SearchDepartment)
+        public async Task<IActionResult> DoctorReport(int? SearchDepartment)
         {
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             if (checkAdmin != null)
             {
-                var AdminInformation = await _context.Admins.FindAsync((decimal)checkAdmin);
+                var AdminInformation = await _context.Admins.FindAsync(checkAdmin);
                 ViewBag.AdminId = checkAdmin;
                 ViewBag.AdminName = AdminInformation.FirstName;
                 ViewBag.AdminIamge = AdminInformation.ImagePath;
@@ -215,7 +216,7 @@ namespace FirstProject.Controllers
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             if (checkAdmin != null)
             {
-                var AdminInformation = await _context.Admins.FindAsync((decimal)checkAdmin);
+                var AdminInformation = await _context.Admins.FindAsync(checkAdmin);
                 ViewBag.AdminId = checkAdmin;
                 ViewBag.AdminName = AdminInformation.FirstName;
                 ViewBag.AdminIamge = AdminInformation.ImagePath;
@@ -231,7 +232,7 @@ namespace FirstProject.Controllers
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             if (checkAdmin != null)
             {
-                var AdminInformation = await _context.Admins.FindAsync((decimal)checkAdmin);
+                var AdminInformation = await _context.Admins.FindAsync(checkAdmin);
                 ViewBag.AdminId = checkAdmin;
                 ViewBag.AdminName = AdminInformation.FirstName;
                 ViewBag.AdminIamge = AdminInformation.ImagePath;
@@ -244,12 +245,12 @@ namespace FirstProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AppointmentReport(decimal? DoctorId, DateTime SearchFrom, DateTime SearchTo)
+        public async Task<IActionResult> AppointmentReport(int? DoctorId, DateTime SearchFrom, DateTime SearchTo)
         {
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             if (checkAdmin != null)
             {
-                var AdminInformation = await _context.Admins.FindAsync((decimal)checkAdmin);
+                var AdminInformation = await _context.Admins.FindAsync(checkAdmin);
                 ViewBag.AdminId = checkAdmin;
                 ViewBag.AdminName = AdminInformation.FirstName;
                 ViewBag.AdminIamge = AdminInformation.ImagePath;
@@ -296,7 +297,7 @@ namespace FirstProject.Controllers
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             if (checkAdmin != null)
             {
-                var AdminInformation = await _context.Admins.FindAsync((decimal)checkAdmin);
+                var AdminInformation = await _context.Admins.FindAsync(checkAdmin);
                 ViewBag.AdminId = checkAdmin;
                 ViewBag.AdminName = AdminInformation.FirstName;
                 ViewBag.AdminIamge = AdminInformation.ImagePath;
@@ -313,7 +314,7 @@ namespace FirstProject.Controllers
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             if (checkAdmin != null)
             {
-                var AdminInformation = await _context.Admins.FindAsync((decimal)checkAdmin);
+                var AdminInformation = await _context.Admins.FindAsync(checkAdmin);
                 ViewBag.AdminId = checkAdmin;
                 ViewBag.AdminName = AdminInformation.FirstName;
                 ViewBag.AdminIamge = AdminInformation.ImagePath;

@@ -11,6 +11,7 @@ using AspNetCoreHero.ToastNotification.Abstractions;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using System.Net.Mail;
+using FirstProject.Infrastructure;
 
 namespace FirstProject.Controllers
 {
@@ -33,7 +34,7 @@ namespace FirstProject.Controllers
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             if (checkAdmin != null)
             {
-                var AdminInformation = await _context.Admins.FindAsync((decimal)checkAdmin);
+                var AdminInformation = await _context.Admins.FindAsync(checkAdmin);
                 ViewBag.AdminId = checkAdmin;
                 ViewBag.AdminName = AdminInformation.FirstName;
                 ViewBag.AdminIamge = AdminInformation.ImagePath;
@@ -45,12 +46,12 @@ namespace FirstProject.Controllers
         }
 
         // GET: Doctors/Details/5
-        public async Task<IActionResult> Details(decimal? id)
+        public async Task<IActionResult> Details(int? id)
         {
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             if (checkAdmin != null)
             {
-                var AdminInformation = await _context.Admins.FindAsync((decimal)checkAdmin);
+                var AdminInformation = await _context.Admins.FindAsync(checkAdmin);
                 ViewBag.AdminId = checkAdmin;
                 ViewBag.AdminName = AdminInformation.FirstName;
                 ViewBag.AdminIamge = AdminInformation.ImagePath;
@@ -80,7 +81,7 @@ namespace FirstProject.Controllers
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             if (checkAdmin != null)
             {
-                var AdminInformation = await _context.Admins.FindAsync((decimal)checkAdmin);
+                var AdminInformation = await _context.Admins.FindAsync(checkAdmin);
                 ViewBag.AdminId = checkAdmin;
                 ViewBag.AdminName = AdminInformation.FirstName;
                 ViewBag.AdminIamge = AdminInformation.ImagePath;
@@ -163,12 +164,12 @@ namespace FirstProject.Controllers
         }
 
         // GET: Doctors/Edit/5
-        public async Task<IActionResult> Edit(decimal? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             if (checkAdmin != null)
             {
-                var AdminInformation = await _context.Admins.FindAsync((decimal)checkAdmin);
+                var AdminInformation = await _context.Admins.FindAsync(checkAdmin);
                 ViewBag.AdminId = checkAdmin;
                 ViewBag.AdminName = AdminInformation.FirstName;
                 ViewBag.AdminIamge = AdminInformation.ImagePath;
@@ -195,7 +196,7 @@ namespace FirstProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(decimal id, [Bind("Id,FirstName,LastName,Email,Phone,Address,Bod,IsAvailable,AvailableTime,AvailableDay,Salary,DepartmentId,SpecializationId,ImagePath,ImageFile")] Doctor doctor)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,Phone,Address,Bod,IsAvailable,AvailableTime,AvailableDay,Salary,DepartmentId,SpecializationId,ImagePath,ImageFile")] Doctor doctor)
         {
             if (id != doctor.Id)
             {
@@ -255,7 +256,7 @@ namespace FirstProject.Controllers
         }
 
         //// GET: Doctors/Delete/5
-        //public async Task<IActionResult> Delete(decimal? id)
+        //public async Task<IActionResult> Delete(int? id)
         //{
         //    if (id == null)
         //    {
@@ -276,7 +277,7 @@ namespace FirstProject.Controllers
         //// POST: Doctors/Delete/5
         //[HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(decimal id)
+        //public async Task<IActionResult> DeleteConfirmed(int id)
         //{
         //    var doctor = await _context.Doctors.FindAsync(id);
         //    _context.Doctors.Remove(doctor);
@@ -284,7 +285,7 @@ namespace FirstProject.Controllers
         //    return RedirectToAction(nameof(Index));
         //}
 
-        private bool DoctorExists(decimal id)
+        private bool DoctorExists(int id)
         {
             return _context.Doctors.Any(e => e.Id == id);
         }

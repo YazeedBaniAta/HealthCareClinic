@@ -14,8 +14,9 @@ namespace FirstProject.Models
         {
             Users = new HashSet<User>();
         }
-
-        public decimal Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         [Required(ErrorMessage = "Please Enter Your First Name.")]
         public string FirstName { get; set; }
         [Required(ErrorMessage = "Please Enter Your Last Name.")]

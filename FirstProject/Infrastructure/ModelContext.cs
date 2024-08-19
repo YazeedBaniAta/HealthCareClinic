@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Reflection;
+using FirstProject.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace FirstProject.Models
+namespace FirstProject.Infrastructure
 {
     public partial class ModelContext : DbContext
     {
@@ -42,26 +44,32 @@ namespace FirstProject.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseOracle("USER ID= TAH13_User90;PASSWORD=yazeed9851;DATA SOURCE= 94.56.229.181:3488/traindb");
-            }
+            ///if (!optionsBuilder.IsConfigured)
+            ///{
+
+            optionsBuilder.UseSqlServer("Server=.;Database=HealthCare;Trusted_Connection=True;MultipleActiveResultSets=true;Encrypt=false;");
+            ///}
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("TAH13_USER90")
-                .HasAnnotation("Relational:Collation", "USING_NLS_COMP");
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            base.OnModelCreating(modelBuilder);
+            ///modelBuilder.HasDefaultSchema("HealthCare.dbo")
+            ///    .HasAnnotation("Relational:Collation", "USING_NLS_COMP");
+
+            ///    IF U WANT TO USE THE ORACLE DATABASE PLZ REPLACE THE (INT AND DECIMAL) DATATYPE
+            ///    WITH NUMBER AND DELETE THE 
 
             modelBuilder.Entity<Admin>(entity =>
             {
                 entity.ToTable("ADMINS");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
+                    .HasColumnName("ID")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    ;
 
                 entity.Property(e => e.FirstName)
                     .HasMaxLength(50)
@@ -89,9 +97,10 @@ namespace FirstProject.Models
                 entity.ToTable("APPOINTMENTS");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    ;
 
                 entity.Property(e => e.AppointmentDate)
                     .HasColumnType("DATE")
@@ -103,11 +112,11 @@ namespace FirstProject.Models
                     .HasColumnName("APPOINTMENT_TIME");
 
                 entity.Property(e => e.DepartmentId)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .HasColumnName("DEPARTMENT_ID");
 
                 entity.Property(e => e.DoctorId)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .HasColumnName("DOCTOR_ID");
 
                 entity.Property(e => e.Message)
@@ -116,7 +125,7 @@ namespace FirstProject.Models
                     .HasColumnName("MESSAGE");
 
                 entity.Property(e => e.PatientId)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .HasColumnName("PATIENT_ID");
 
                 entity.Property(e => e.Status)
@@ -128,7 +137,7 @@ namespace FirstProject.Models
                 entity.HasOne(d => d.Department)
                     .WithMany(p => p.Appointments)
                     .HasForeignKey(d => d.DepartmentId)
-                    .OnDelete(DeleteBehavior.SetNull)
+                    .OnDelete(DeleteBehavior.NoAction)
                     .HasConstraintName("APPOINTMENT_FK1");
 
                 entity.HasOne(d => d.Doctor)
@@ -149,9 +158,10 @@ namespace FirstProject.Models
                 entity.ToTable("ATTENDANCES");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    ;
 
                 entity.Property(e => e.AttendanceDate)
                     .HasMaxLength(200)
@@ -159,7 +169,7 @@ namespace FirstProject.Models
                     .HasColumnName("ATTENDANCE_DATE");
 
                 entity.Property(e => e.DoctorId)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .HasColumnName("DOCTOR_ID");
 
                 entity.Property(e => e.Status)
@@ -170,7 +180,7 @@ namespace FirstProject.Models
                 entity.HasOne(d => d.Doctor)
                     .WithMany(p => p.Attendances)
                     .HasForeignKey(d => d.DoctorId)
-                    .OnDelete(DeleteBehavior.SetNull)
+                    .OnDelete(DeleteBehavior.NoAction)
                     .HasConstraintName("ATTENDANCE_FK1");
             });
 
@@ -179,9 +189,10 @@ namespace FirstProject.Models
                 entity.ToTable("BANNER_SECTION");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    ;
 
                 entity.Property(e => e.Description)
                     .HasMaxLength(250)
@@ -204,9 +215,10 @@ namespace FirstProject.Models
                 entity.ToTable("CONTACT");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    ;
 
                 entity.Property(e => e.Email)
                     .HasMaxLength(100)
@@ -239,9 +251,10 @@ namespace FirstProject.Models
                 entity.ToTable("COUNTER_SECTION");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    ;
 
                 entity.Property(e => e.ExpertDoctor)
                     .HasMaxLength(50)
@@ -269,9 +282,10 @@ namespace FirstProject.Models
                 entity.ToTable("DEPARTMENTS");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    ;
 
                 entity.Property(e => e.Description)
                     .HasMaxLength(250)
@@ -294,9 +308,10 @@ namespace FirstProject.Models
                 entity.ToTable("DOCTORS");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    ;
 
                 entity.Property(e => e.Address)
                     .HasMaxLength(150)
@@ -319,7 +334,7 @@ namespace FirstProject.Models
                     .HasColumnName("BOD");
 
                 entity.Property(e => e.DepartmentId)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .HasColumnName("DEPARTMENT_ID");
 
                 entity.Property(e => e.Email)
@@ -359,19 +374,19 @@ namespace FirstProject.Models
                     .HasColumnName("SALARY");
 
                 entity.Property(e => e.SpecializationId)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .HasColumnName("SPECIALIZATION_ID");
 
                 entity.HasOne(d => d.Department)
                     .WithMany(p => p.Doctors)
                     .HasForeignKey(d => d.DepartmentId)
-                    .OnDelete(DeleteBehavior.SetNull)
+                    .OnDelete(DeleteBehavior.NoAction)
                     .HasConstraintName("DOCTOR_FK1");
 
                 entity.HasOne(d => d.Specialization)
                     .WithMany(p => p.Doctors)
                     .HasForeignKey(d => d.SpecializationId)
-                    .OnDelete(DeleteBehavior.SetNull)
+                    .OnDelete(DeleteBehavior.NoAction)
                     .HasConstraintName("DOCTOR_FK2");
             });
 
@@ -380,9 +395,10 @@ namespace FirstProject.Models
                 entity.ToTable("FEATURES_SECTION");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    ;
 
                 entity.Property(e => e.EmaegencyCase)
                     .HasMaxLength(50)
@@ -410,9 +426,10 @@ namespace FirstProject.Models
                 entity.ToTable("FOOTER_SECTION");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    ;
 
                 entity.Property(e => e.Column1)
                     .HasMaxLength(100)
@@ -430,9 +447,10 @@ namespace FirstProject.Models
                 entity.ToTable("HEAD_SECTION");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    ;
 
                 entity.Property(e => e.ClinicAddress)
                     .HasMaxLength(50)
@@ -460,12 +478,13 @@ namespace FirstProject.Models
                 entity.ToTable("INVOICES");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    ;
 
                 entity.Property(e => e.BookingAmount)
-                    .HasColumnType("NUMBER(8,2)")
+                    .HasColumnType("DECIMAL(8,2)")
                     .HasColumnName("BOOKING_AMOUNT")
                     .HasDefaultValueSql("10 \n");
 
@@ -480,18 +499,18 @@ namespace FirstProject.Models
                     .HasColumnName("CARD_NUMBER");
 
                 entity.Property(e => e.DoctorId)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .HasColumnName("DOCTOR_ID");
 
                 entity.Property(e => e.PatientId)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .HasColumnName("PATIENT_ID");
 
 
                 entity.HasOne(d => d.Doctor)
                     .WithMany(p => p.Invoices)
                     .HasForeignKey(d => d.DoctorId)
-                    .OnDelete(DeleteBehavior.SetNull)
+                    .OnDelete(DeleteBehavior.NoAction)
                     .HasConstraintName("INVOICES_FK2");
 
                 entity.HasOne(d => d.Patient)
@@ -508,9 +527,10 @@ namespace FirstProject.Models
                 entity.ToTable("PARTNERS_SECTION");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    ;
 
                 entity.Property(e => e.Description)
                     .HasMaxLength(100)
@@ -528,9 +548,10 @@ namespace FirstProject.Models
                 entity.ToTable("PATIENTS");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    ;
 
                 entity.Property(e => e.Address)
                     .HasMaxLength(100)
@@ -578,17 +599,18 @@ namespace FirstProject.Models
                 entity.ToTable("PATIENTS_VESA");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    ;
 
                 entity.Property(e => e.Balance)
-                    .HasColumnType("NUMBER(8,2)")
+                    .HasColumnType("DECIMAL(8,2)")
                     .HasColumnName("BALANCE")
                     .HasDefaultValueSql("1000 ");
 
                 entity.Property(e => e.PatientId)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .HasColumnName("PATIENT_ID");
 
                 entity.HasOne(d => d.Patient)
@@ -603,9 +625,10 @@ namespace FirstProject.Models
                 entity.ToTable("ROLES");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    ;
 
                 entity.Property(e => e.Rolename)
                     .HasMaxLength(20)
@@ -618,9 +641,10 @@ namespace FirstProject.Models
                 entity.ToTable("SERVICE_PAGE");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    ;
 
                 entity.Property(e => e.Description)
                     .HasMaxLength(250)
@@ -643,9 +667,10 @@ namespace FirstProject.Models
                 entity.ToTable("SERVICE_SECTION");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    ;
 
                 entity.Property(e => e.Description)
                     .HasMaxLength(100)
@@ -668,9 +693,10 @@ namespace FirstProject.Models
                 entity.ToTable("SPECIALIZATION");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    ;
 
                 entity.Property(e => e.Name)
                     .HasMaxLength(100)
@@ -683,9 +709,10 @@ namespace FirstProject.Models
                 entity.ToTable("SUBSCRIP");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    ;
 
                 entity.Property(e => e.Email)
                     .HasMaxLength(100)
@@ -698,9 +725,10 @@ namespace FirstProject.Models
                 entity.ToTable("TESTIMONIAL_SECTION");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    ;
 
                 entity.Property(e => e.Description)
                     .HasMaxLength(250)
@@ -708,7 +736,7 @@ namespace FirstProject.Models
                     .HasColumnName("DESCRIPTION");
 
                 entity.Property(e => e.PatientId)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .HasColumnName("PATIENT_ID");
 
                 entity.Property(e => e.Status)
@@ -725,7 +753,7 @@ namespace FirstProject.Models
                 entity.HasOne(d => d.Patient)
                     .WithMany(p => p.TestimonialSections)
                     .HasForeignKey(d => d.PatientId)
-                    .OnDelete(DeleteBehavior.SetNull)
+                    .OnDelete(DeleteBehavior.NoAction)
                     .HasConstraintName("TESTIMONIAL_SECTION_FK1");
             });
 
@@ -734,16 +762,17 @@ namespace FirstProject.Models
                 entity.ToTable("USERS");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    ;
 
                 entity.Property(e => e.AdminId)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .HasColumnName("ADMIN_ID");
 
                 entity.Property(e => e.DoctorId)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .HasColumnName("DOCTOR_ID");
 
                 entity.Property(e => e.Password)
@@ -752,11 +781,11 @@ namespace FirstProject.Models
                     .HasColumnName("PASSWORD");
 
                 entity.Property(e => e.PatientId)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .HasColumnName("PATIENT_ID");
 
                 entity.Property(e => e.RoleId)
-                    .HasColumnType("NUMBER")
+                    .HasColumnType("INT")
                     .HasColumnName("ROLE_ID");
 
                 entity.Property(e => e.UserName)
@@ -767,7 +796,7 @@ namespace FirstProject.Models
                 entity.HasOne(d => d.Admin)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.AdminId)
-                    .OnDelete(DeleteBehavior.SetNull)
+                    .OnDelete(DeleteBehavior.NoAction)
                     .HasConstraintName("USERS_FK2");
 
                 entity.HasOne(d => d.Doctor)
@@ -785,7 +814,7 @@ namespace FirstProject.Models
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.RoleId)
-                    .OnDelete(DeleteBehavior.SetNull)
+                    .OnDelete(DeleteBehavior.NoAction)
                     .HasConstraintName("USERS_FK1");
             });
 

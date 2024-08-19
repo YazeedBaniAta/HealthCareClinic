@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -8,7 +9,9 @@ namespace FirstProject.Models
 {
     public partial class Contact
     {
-        public decimal Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         [Required(ErrorMessage = "Please enter Your Name.")]
         public string FullName { get; set; }
         [Required(ErrorMessage = "Please enter Your Email.")]

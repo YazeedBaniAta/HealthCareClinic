@@ -16,7 +16,9 @@ namespace FirstProject.Models
             Doctors = new HashSet<Doctor>();
         }
 
-        public decimal Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         [Required(ErrorMessage = "Please enter The Clinic Name.")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Please enter The Clinic Description.")]

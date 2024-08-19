@@ -18,7 +18,9 @@ namespace FirstProject.Models
             Users = new HashSet<User>();
         }
 
-        public decimal Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         [Required(ErrorMessage = "Please enter First Name.")]
         public string FirstName { get; set; }
         [Required(ErrorMessage = "Please enter Last Name.")]
@@ -39,9 +41,9 @@ namespace FirstProject.Models
         [Required(ErrorMessage = "Please enter The Salary.")]
         public string Salary { get; set; }
         [Required(ErrorMessage = "Please enter Clinc.")]
-        public decimal? DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }
         [Required(ErrorMessage = "Please enter Specialization For doctor.")]
-        public decimal? SpecializationId { get; set; }
+        public int? SpecializationId { get; set; }
         
         public string ImagePath { get; set; }
         [NotMapped]

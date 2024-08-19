@@ -28,9 +28,11 @@
 				type: "GET",
 				dataType: "json",
 				success: function (data) {
+					console.log("DoctorData: ", data);
 					$('select[name="DoctorId"]').empty();
 					$('select[name="DoctorId"]').append('<option selected disabled >Select Doctor</option>');
-					$.each(data.result, function (key, value) {
+					$.each(data, function (key, value) {
+						console.log('<value="' + value.id + '">' + "Dr-" + value.firstName + " " + value.lastName);
 						$('select[name="DoctorId"]').append('<option value="' + value.id + '">' + "Dr-" + value.firstName +" "+ value.lastName + '</option>');
 					});
 				},

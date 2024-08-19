@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FirstProject.Models;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Http;
+using FirstProject.Infrastructure;
 
 namespace FirstProject.Controllers
 {
@@ -28,7 +29,7 @@ namespace FirstProject.Controllers
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             if (checkAdmin != null)
             {
-                var AdminInformation = await _context.Admins.FindAsync((decimal)checkAdmin);
+                var AdminInformation = await _context.Admins.FindAsync(checkAdmin);
                 ViewBag.AdminId = checkAdmin;
                 ViewBag.AdminName = AdminInformation.FirstName;
                 ViewBag.AdminIamge = AdminInformation.ImagePath;
@@ -39,7 +40,7 @@ namespace FirstProject.Controllers
         }
 
         // GET: Contacts/Details/5
-        public async Task<IActionResult> Details(decimal? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -71,7 +72,7 @@ namespace FirstProject.Controllers
         }
 
        
-        private bool ContactExists(decimal id)
+        private bool ContactExists(int id)
         {
             return _context.Contacts.Any(e => e.Id == id);
         }

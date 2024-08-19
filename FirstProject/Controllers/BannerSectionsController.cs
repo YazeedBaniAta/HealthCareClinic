@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using FirstProject.Infrastructure;
 
 namespace FirstProject.Controllers
 {
@@ -32,7 +33,7 @@ namespace FirstProject.Controllers
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             if (checkAdmin != null)
             {
-                var AdminInformation = await _context.Admins.FindAsync((decimal)checkAdmin);
+                var AdminInformation = await _context.Admins.FindAsync(checkAdmin);
                 ViewBag.AdminId = checkAdmin;
                 ViewBag.AdminName = AdminInformation.FirstName;
                 ViewBag.AdminIamge = AdminInformation.ImagePath;
@@ -44,12 +45,12 @@ namespace FirstProject.Controllers
 
        
        // GET: BannerSections/Edit/5
-        public async Task<IActionResult> Edit(decimal? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             var checkAdmin = HttpContext.Session.GetInt32("AdminId");
             if (checkAdmin != null)
             {
-                var AdminInformation = await _context.Admins.FindAsync((decimal)checkAdmin);
+                var AdminInformation = await _context.Admins.FindAsync(checkAdmin);
                 ViewBag.AdminId = checkAdmin;
                 ViewBag.AdminName = AdminInformation.FirstName;
                 ViewBag.AdminIamge = AdminInformation.ImagePath;
@@ -75,7 +76,7 @@ namespace FirstProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(decimal id, [Bind("Id,Title,Description,ImagePath,ImageFile")] BannerSection bannerSection)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,ImagePath,ImageFile")] BannerSection bannerSection)
         {
             if (id != bannerSection.Id)
             {
@@ -118,7 +119,7 @@ namespace FirstProject.Controllers
             return View(bannerSection);
         }
 
-        private bool BannerSectionExists(decimal id)
+        private bool BannerSectionExists(int id)
         {
             return _context.BannerSections.Any(e => e.Id == id);
         }
